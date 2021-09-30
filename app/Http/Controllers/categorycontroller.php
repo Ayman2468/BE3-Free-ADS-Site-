@@ -39,7 +39,7 @@ class categorycontroller extends Controller
          //update
         $category = category::find($categoryid);
         if (!$category) {
-            return redirect('category/index')->with(['message' => __('msg.user doesn\'t exist')]);
+            return redirect('category/index')->with(['message' => __('msg.Category doesn\'t exist')]);
         }
         $data = [
             'category_ar'=> $request->category_ar,
@@ -47,7 +47,7 @@ class categorycontroller extends Controller
         ];
         $op = category::where('id', $categoryid)->update($data);
         if ($op) {
-            $message = __('msg.user data updated successfully');
+            $message = __('msg.category data updated successfully');
         } else {
             $message = __("msg.no change in data happened");
         }

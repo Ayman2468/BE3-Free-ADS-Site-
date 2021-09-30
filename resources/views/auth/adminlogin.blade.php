@@ -8,6 +8,11 @@
                 <div class="card-header">{{ __('msg.adminlogin') }}</div>
 
                 <div class="card-body">
+                    @if(session()->has('message'))
+                    <div class="alert alert-danger text-center" role="alert">
+                        <strong>{{session()->get('message')}}</strong>
+                    </div>
+                    @endif
                     <form method="POST" action="{{ route('dologin') }}">
                         @csrf
 

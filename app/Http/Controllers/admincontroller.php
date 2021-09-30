@@ -6,6 +6,7 @@ use App\Http\Requests\adminrequest;
 use App\Models\admins;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class admincontroller extends Controller
 {
@@ -16,7 +17,7 @@ class admincontroller extends Controller
         foreach($adminsdata as $admin){
             $admin_name = $admin->user()->value('user_name');
             $admin['user_name'] = $admin_name;
-            $adminsdata[$admin->user_id-1]=$admin;
+            // $adminsdata[$admin->user_id-1]=$admin;
         }
         return view('admins.index', ['adminsdata' => $adminsdata]);
     }
@@ -57,7 +58,9 @@ class admincontroller extends Controller
             "email"     => "required|email",
             "password"  => "required|min:8"
         ]);
-
+        if($data['email'] != Auth::user()->email){
+            return redirect()->back()->withInput(['email'=>'you can\'t access as admin with other\'s data']);
+        }
         $pass = sha1($request->password);
         $a = admins::where('email', $request->email)->where('password', $pass)->select('id', 'email', 'position')->get();
         if (!$a->isEmpty()) {
@@ -66,7 +69,7 @@ class admincontroller extends Controller
                 return redirect('admin/index');
             }
         } else {
-            return redirect()->route('adminlogin')->withInput($request->only('email'));
+            return redirect()->route('adminlogin')->withInput($request->only('email'))->with('message','wrong password');
         }
     }
 

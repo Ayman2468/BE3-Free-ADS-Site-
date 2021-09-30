@@ -28,8 +28,8 @@ class userrequest extends FormRequest
             //
             'user_name' => "required|max:50|unique:users,user_name,$userid",
             'email' => "required|max:100|unique:users,email,$userid|email",
-            'mobile' => 'required|max:09999999999999999999|numeric|starts_with:0',
-            'age' => 'required|max:150|numeric',
+            'mobile' => 'required|min:01000000000|max:01999999999999|numeric|starts_with:0',
+            'age' => 'required|min:18|max:150|numeric',
         ];
     }
     public function messages()
@@ -42,7 +42,9 @@ class userrequest extends FormRequest
             "user_name.max" => __('msg.max number of charcters allawed is 50'),
             "email.max" => __('msg.max number of charcters allawed is 100'),
             "age.max" => __('msg.max age is 150'),
-            "mobile.max" => __('msg.max number of digits allawed is 20'),
+            "age.min" => __('msg.min age is 18'),
+            "mobile.max" => __('msg.max number of digits allawed is 14'),
+            "mobile.min" => __('msg.min number of digits allawed is 11'),
             "user_name.unique" => __('msg.user name must be unique'),
             "email.unique" => __('msg.email must be unique'),
             "age.numeric" => __('msg.age must be numeric'),

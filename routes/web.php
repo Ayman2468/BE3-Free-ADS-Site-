@@ -15,7 +15,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization as FacadesLaravelLoc
 | contains the "web" middleware group. Now create something great!
 |
 */
-define('paginationcount', 5);
+define('paginationcount', 24);
 
 Route::group([
     'prefix' => FacadesLaravelLocalization::setlocale(),
@@ -39,9 +39,7 @@ Route::get('real-estate', function () {
 Route::get('contact', function () {
     return view('contact');
 });
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/','App\Http\controllers\adcontroller@all');
 
 Auth::routes();
 
@@ -96,12 +94,19 @@ Route::group(['prefix' => 'admin'], function () {
 Route::prefix('ad')->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('create','App\Http\Controllers\adcontroller@create');
+        Route::get('edit/{adid}','App\Http\Controllers\adcontroller@edit');
         Route::post('store','App\Http\Controllers\adcontroller@store')->name('ad.store');
+        Route::post('update/{adid}','App\Http\Controllers\adcontroller@update')->name('ad.update');
+        Route::get('delete/{adid}','App\Http\Controllers\adcontroller@destroy');
     });
-    Route::get('display','App\Http\Controllers\adcontroller@display');
+    Route::get('index','App\Http\Controllers\adcontroller@index')->middleware('admin');
+    Route::get('display/{adid}','App\Http\Controllers\adcontroller@display');
     Route::post('load/{brandid}','App\Http\controllers\adcontroller@load')->name('load');
     Route::post('gov/{govid}','App\Http\controllers\adcontroller@gov')->name('gov');
     Route::post('cat/{catid}','App\Http\controllers\adcontroller@cat')->name('cat');
+    Route::post('search','App\Http\controllers\adcontroller@search')->name('search');
+    Route::get('searchcat/{int}','App\Http\controllers\adcontroller@searchcat')->name('searchcat');
+    Route::get('filter/{way}','App\Http\controllers\adcontroller@filter')->name('filter');
 });
 
 Route::get('payment','App\Http\Controllers\paymentcontroller@paymentform');

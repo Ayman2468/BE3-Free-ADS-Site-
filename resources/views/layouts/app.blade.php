@@ -79,6 +79,9 @@
                                     <a class="dropdown-item" href="{{ url('category/index') }}">
                                         {{ __('All Categories') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ url('ad/index') }}">
+                                        {{ __('All ADs Control') }}
+                                    </a>
                                     @endif
                                     @if (null == session()->get('admindata'))
                                     <a class="dropdown-item" href="{{ url('admin/adminlogin') }}">

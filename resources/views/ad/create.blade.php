@@ -8,7 +8,8 @@
                 <div class="card-header">{{ __('Create Ad') }}</div>
 
                 <div class="card-body">
-                    <div id="msg" class="alert alert-success" style="display: none;">
+
+                    <div id="msg" class="alert alert-success text-center font-weight-bold" style="display: none;">
                     </div>
                     <form id="adform" method="POST" enctype="multipart/form-data" action="">
                         @csrf
@@ -17,7 +18,7 @@
                             <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}"  autocomplete="title" placeholder="Write The Title of Your Ad" autofocus>
+                                <input id="title" type="text" class="form-control" name="title"  autocomplete="title" placeholder="Write The Title of Your Ad" autofocus>
 
                                 <strong  id="title_error" class="text-danger" role="alert">
                                 </strong>
@@ -28,10 +29,10 @@
                             <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
 
                             <div class="col-md-6">
-                                <select id="category" class="form-control text-muted" name="category" value="{{old('category')}}" >
+                                <select id="category" class="form-control text-muted" name="category">
                                     <option disabled selected>Choose Category</option>
                                     @foreach ( $categories as $category)
-                                    <option class="{{$category->id}}" value="{{$category->id}}" {{$category->id == old('category') ? "selected" : ""}}>{{$category->category_en}}</option>
+                                    <option class="{{$category->id}}" value="{{$category->id}}">{{$category->category_en}}</option>
                                     @endforeach
                                 </select>
 
@@ -45,7 +46,6 @@
 
                             <div class="col-md-6">
                                 <select id="sub_category" class="form-control text-muted" name="sub_category"  >
-                                    {{old('sub_category')}}
                                     <option disabled selected>Choose Sub Category</option>
                                 </select>
 
@@ -64,12 +64,11 @@
 
                         {{-- End of Changeable Section --}}
 
-                        <div class="form-group row">
-                            <label for="year" class="col-md-4 col-form-label text-md-right">{{ __('Year') }}</label>
+                        <div id="year" class="form-group row">
+                            <label for="year1" class="col-md-4 col-form-label text-md-right">{{ __('Year') }}</label>
 
                             <div class="col-md-6">
-                                <select id="year" class="form-control text-muted" name="year"  >
-                                    {{old('year')}}
+                                <select id="year1" class="form-control text-muted" name="year"  >
                                     <option disabled selected>Choose Year</option>
                                     @for ($i = date("Y")+1; $i>=date("Y")-100;$i--)
                                         <option value="{{$i}}">
@@ -88,7 +87,6 @@
 
                             <div class="col-md-6">
                                 <select id="payment_method" class="form-control text-muted" name="payment_method"  >
-                                    {{old('payment_method')}}
                                     <option disabled selected>Choose Payment Method</option>
                                     <option value="cash">Cash</option>
                                     <option value="installment">Installment</option>
@@ -105,7 +103,6 @@
 
                             <div class="col-md-6">
                                 <select id="receiving_date" class="form-control text-muted" name="receiving_date"  >
-                                    {{old('receiving_date')}}
                                     <option value="immediately" selected>Immediately</option>
                                     <option value="within a week">Within a week</option>
                                     <option value="within a month">Within a month</option>
@@ -125,7 +122,7 @@
                             <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price / Advance Payment') }}</label>
 
                             <div class="col-md-6">
-                                <input id="price" type="text" class="form-control" name="price" value="{{ old('price') }}"  autocomplete="price" placeholder="Price or ( Advance Payment If Installment )" autofocus>
+                                <input id="price" type="text" class="form-control" name="price" autocomplete="price" placeholder="Price or ( Advance Payment If Installment )" autofocus>
 
                                 <strong  id="price_error" class="text-danger" role="alert">
                                 </strong>
@@ -137,7 +134,6 @@
 
                             <div class="col-md-6">
                                 <textarea id="details" type="text" class="form-control" name="details"  data-mintext="10" data-maxtext="4000" cols="80" rows="1">
-                                    {{old('details')}}
                                 </textarea>
 
                                 <strong  id="details_error" class="text-danger" role="alert">
@@ -161,7 +157,6 @@
 
                             <div class="col-md-6">
                                 <select id="governorate" class="form-control text-muted" name="governorate"  >
-                                    {{old('governorate')}}
                                     <option disabled selected>Choose Governorate</option>
                                     @foreach ( $governorates as $governorate)
                                     <option class="{{$governorate->id}}" value="{{$governorate->id}}">{{$governorate->governorate_name_en}}</option>
@@ -178,7 +173,6 @@
 
                             <div class="col-md-6">
                                 <select id="city" class="form-control text-muted" name="city"  >
-                                    {{old('city')}}
                                     <option disabled selected>Choose City</option>
                                 </select>
 
@@ -191,7 +185,7 @@
                             <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
 
                             <div class="col-md-6">
-                                <input id="mobile" type="text" class="form-control" name="mobile" value="{{ old('mobile') }}"  autocomplete="mobile" placeholder="Mobile of The Owner">
+                                <input id="mobile" type="text" class="form-control" name="mobile"  autocomplete="mobile" placeholder="Mobile of The Owner">
 
                                 <strong  id="mobile_error" class="text-danger" role="alert">
                                 </strong>
@@ -377,63 +371,66 @@ $(document).ready(function() {
 
             if(land == 'Land'){
                 $('#notforland').hide();
+                $('#year').hide();
             }else{
                 $('#notforland').show();
+                $('#year').show();
             }
     });
 });
+
 $(document).on('click','#save',function(e){
 
-e.preventDefault();
-$('#title_error').text('');
-$('#category_error').text('');
-$('#sub_category_error').text('');
-$('#details_error').text('');
-$('#images_error').text('');
-$('#governorate_error').text('');
-$('#city_error').text('');
-$('#year_error').text('');
-$('#payment_method_error').text('');
-$('#receiving_date_error').text('');
-$('#price_error').text('');
-$('#real_estate_type_error').text('');
-$('#space_error').text('');
-$('#bed_rooms_error').text('');
-$('#bathrooms_error').text('');
-$('#furnished_error').text('');
-$('#floor_error').text('');
-$('#brand_error').text('');
-$('#model_error').text('');
-$('#condition1_error').text('');
-$('#engine_error').text('');
-$('#body_type_error').text('');
-$('#fuel_error').text('');
-$('#transmition_error').text('');
-$('#kilometers_error').text('');
-$('#color_error').text('');
-$('#mobile_error').text('');
-var formdata = new FormData($('#adform')[0]);
-$.ajax({
-type: 'post',
-enctype: 'multipart/form-data',
-url: "{{route('ad.store')}}",
-data:formdata,
-processData: false,
-contentType: false,
-cache: false,
-success: function(data){
-    if(data.status==true){
-        $('#msg').show();
-        $('#msg').text(data.msg);
-    }
-},
-error: function(reject){
-    var response = $.parseJSON(reject.responseText);
-    $.each(response.errors, function(key, val){
-        $("#" + key + "_error").text(val[0]);
+    e.preventDefault();
+    $('#title_error').text('');
+    $('#category_error').text('');
+    $('#sub_category_error').text('');
+    $('#details_error').text('');
+    $('#images_error').text('');
+    $('#governorate_error').text('');
+    $('#city_error').text('');
+    $('#year_error').text('');
+    $('#payment_method_error').text('');
+    $('#receiving_date_error').text('');
+    $('#price_error').text('');
+    $('#real_estate_type_error').text('');
+    $('#space_error').text('');
+    $('#bed_rooms_error').text('');
+    $('#bathrooms_error').text('');
+    $('#furnished_error').text('');
+    $('#floor_error').text('');
+    $('#brand_error').text('');
+    $('#model_error').text('');
+    $('#condition1_error').text('');
+    $('#engine_error').text('');
+    $('#body_type_error').text('');
+    $('#fuel_error').text('');
+    $('#transmition_error').text('');
+    $('#kilometers_error').text('');
+    $('#color_error').text('');
+    $('#mobile_error').text('');
+    var formdata = new FormData($('#adform')[0]);
+    $.ajax({
+        type: 'post',
+        enctype: 'multipart/form-data',
+        url: "{{route('ad.store')}}",
+        data:formdata,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function(data){
+            if(data.status==true){
+                $('#msg').show();
+                $('#msg').text(data.msg);
+            }
+        },
+        error: function(reject){
+            var response = $.parseJSON(reject.responseText);
+            $.each(response.errors, function(key, val){
+                $("#" + key + "_error").text(val[0]);
+            });
+        }
     });
-}
-});
 });
 </script>
 @endsection

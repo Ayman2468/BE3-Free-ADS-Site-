@@ -39,15 +39,15 @@
     @foreach ($usersdata as $fetchedData )
 
 
-           <tr>
+            <tr>
                 <td>{{ $fetchedData->id }}</td>
                 <td>{{ $fetchedData->user_name }}</td>
                 <td>{{ $fetchedData->email }}</td>
                 <td>{{ $fetchedData->mobile }}</td>
                 <td>{{ $fetchedData->age }}</td>
-                </td>
-                 <td>
-                                             <!-- Button trigger modal -->
+
+                <td>
+                                            <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#exampleModal{{$fetchedData->id}}">
                             {{__('msg.Delete')}}
                         </button>

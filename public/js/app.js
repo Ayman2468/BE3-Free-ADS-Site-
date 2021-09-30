@@ -1,18 +1,18 @@
-$(function () {
-    $("#category").on("change",function(){
-        let levelClass = $('#category').find('option:selected').attr('class');
-        console.log(levelClass);
-        $('#sub_category option').each(function () {
-            let self = $(this);
-            if (self.hasClass(levelClass)) {
-                self.removeAttr('hidden');
-                self.show();
-            } else {
-                self.hide();
-            }
-        });
-    });
-});
+// $(function () {
+//     $("#category").on("change",function(){
+//         let levelClass = $('#category').find('option:selected').attr('class');
+//         console.log(levelClass);
+//         $('#sub_category option').each(function () {
+//             let self = $(this);
+//             if (self.hasClass(levelClass)) {
+//                 self.removeAttr('hidden');
+//                 self.show();
+//             } else {
+//                 self.hide();
+//             }
+//         });
+//     });
+// });
 
 // $(function(){
 //     $("#governorate").on("change",function(){
@@ -29,6 +29,7 @@ $(function () {
 //         });
 //     });
 // });
+
 // $(function(){
 //     $("#brand").on("change",function(){
 //         let levelClass = $('#brand').find('option:selected').attr('class');
