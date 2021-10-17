@@ -15,5 +15,5 @@ class ads extends Model
                            'price','real_estate_type','space','bed_rooms',
                            'bathrooms','furnished','floor','additions','brand',
                            'model','condition1','engine','body_type','fuel',
-                           'transmition','kilometers','color','mobile','call1'];
+                           'transmition','kilometers','color','mobile','call1','approval','viewers'];
 }

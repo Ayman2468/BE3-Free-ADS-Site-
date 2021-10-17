@@ -100,15 +100,16 @@ Route::prefix('ad')->group(function () {
         Route::get('delete/{adid}','App\Http\Controllers\adcontroller@destroy');
     });
     Route::get('index','App\Http\Controllers\adcontroller@index')->middleware('admin');
+    Route::get('approve/{adid}','App\Http\Controllers\adcontroller@approve')->middleware('admin');
     Route::get('display/{adid}','App\Http\Controllers\adcontroller@display');
     Route::post('load/{brandid}','App\Http\controllers\adcontroller@load')->name('load');
     Route::post('gov/{govid}','App\Http\controllers\adcontroller@gov')->name('gov');
     Route::post('cat/{catid}','App\Http\controllers\adcontroller@cat')->name('cat');
-    Route::post('search','App\Http\controllers\adcontroller@search')->name('search');
     Route::get('searchcat/{int}','App\Http\controllers\adcontroller@searchcat')->name('searchcat');
-    Route::get('filter/{way}','App\Http\controllers\adcontroller@filter')->name('filter');
+    Route::post('advance','App\Http\controllers\adcontroller@advance')->name('ad.advance');
 });
 
 Route::get('payment','App\Http\Controllers\paymentcontroller@paymentform');
+Route::post('store/{ad_id}','App\Http\Controllers\commentcontroller@store')->name('comment.store');
 
 });

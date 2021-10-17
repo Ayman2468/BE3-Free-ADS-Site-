@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'BE3') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.js.map') }}" defer></script>
@@ -58,6 +57,56 @@
                                 </li>
                             @endif
                         @else
+                        <li class="dropdown dropdown-notification nav-item  dropdown-notifications">
+                            <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                                <i class="fa fa-bell"> </i>
+                                <span
+                                class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow   notif-count"
+                                    data-count="0">{{count(App\models\comments::where([['owner_id','=',Auth::user()->id],
+                                    ['seen_status','=','not seen']])->get())}}</span>
+                                </a>
+                        @if (null !== ($comments = App\models\comments::where('owner_id',Auth::user()->id)->take(15)->get()))
+                        <ul class="dropdown-menu dropdown-menu-right width">
+                            <li class="dropdown-menu-header">
+                                <h6 class="dropdown-header m-0 text-center">
+                                    <span class="grey darken-2 text-center">Notifications</span>
+                                </h6>
+                            </li>
+                            @foreach ($comments as $comment)
+                                        <li class="scrollable-container ps-container ps-active-y media-list w-100">
+                                            <a class="text-decoration-none" href="{{url('ad/display/'.$comment->ad_id.'#comments')}}">
+                                                        @if ($comment->seen_status == 'not seen')
+                                                        <div class="media msg">
+                                                            <div class="media-body">
+                                                        <p class="media-heading font-weight-bold note mb-0">
+                                                            {{App\models\User::where('id',$comment->user_id)->value('user_name')}}{{ __(' msg.commented on your ad')}}
+                                                        </p>
+                                                        <p class="note text-muted d-block">
+                                                            {{substr($comment->comment,0,15).'...'}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                        @else
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                        <p class="media-heading font-weight-bold note text-dark mb-0">
+                                                            {{App\models\User::where('id',$comment->user_id)->value('user_name')}}{{ __(' msg.commented on your ad')}}
+                                                        </p>
+                                                        <p class="note text-muted d-block">
+                                                            {{substr($comment->comment,0,15).'...'}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                        @endif
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
+                                            href=""> All Notifications </a>
+                                        </li>
+                                    </ul>
+                            @endif
+                        </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('ad/create')}}">Place Ad</a>
                             </li>
@@ -163,5 +212,16 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @yield('script')
+
+    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('3dd16575fd82debf185d', {
+            cluster: 'mt1',
+            encrypted: false
+        });
+        </script>
+        <script src="{{asset('js/pusherNotifications.js')}}"></script> --}}
 </body>
 </html>

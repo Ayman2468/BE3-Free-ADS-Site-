@@ -27,7 +27,7 @@ class adrequest extends FormRequest
     public function rules()
     {
         $editcond = request('user_id');
-        if($editcond){
+        if(isset($editcond)){
         return [
             //
             'title' => "required|max:40",

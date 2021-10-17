@@ -94,6 +94,14 @@ textarea{
     font-size: 12px;
 }
 
+.width{
+    width:250px;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
 .min-ad{
     width: 340px !important;
     color: #343a40;

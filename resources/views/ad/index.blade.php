@@ -129,6 +129,9 @@
                         </div>
                     <a href='{{ url('ad/edit/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Edit')}}</a>
                     <a href='{{ url('ad/display/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Show AD')}}</a>
+                    @if ($fetchedData->approval == 'Not Approved')
+                        <a href='{{ url('ad/approve/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Approve AD')}}</a>
+                    @endif
                 </td>
            </tr>
      @endforeach

@@ -1,0 +1,133 @@
+    // public function filter($search,$gov = 0,$way){
+
+    //     switch ($gov) {
+    //         case '0':
+    //             # code...
+    //             switch ($way) {
+    //                 case 'price_asc':
+
+    //                     if($search == 'Real Estate'){
+    //                         $filtered = ads::where('category_id',1)->where('approval','Approved')->orderBy('price','asc')->paginate(paginationcount);
+    //                     }elseif($search == 'Cars and Spare Parts'){
+    //                         $filtered = ads::where('category_id',2)->where('approval','Approved')->orderBy('price','asc')->paginate(paginationcount);
+    //                     }else{
+    //                         $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->orderBy('price','asc')->paginate(paginationcount);
+    //                     }
+    //                     break;
+
+    //                 case 'price_desc':
+
+    //                     if($search == 'Real Estate'){
+    //                         $filtered = ads::where('category_id',1)->where('approval','Approved')->orderBy('price','desc')->paginate(paginationcount);
+    //                     }elseif($search == 'Cars and Spare Parts'){
+    //                         $filtered = ads::where('category_id',2)->where('approval','Approved')->orderBy('price','desc')->paginate(paginationcount);
+    //                     }else{
+    //                         $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->orderBy('price','desc')->paginate(paginationcount);
+    //                     }
+    //                     break;
+
+    //                 case 'date_desc':
+
+    //                     if($search == 'Real Estate'){
+    //                         $filtered = ads::where('category_id',1)->where('approval','Approved')->orderBy('created_at','desc')->paginate(paginationcount);
+    //                     }elseif($search == 'Cars and Spare Parts'){
+    //                         $filtered = ads::where('category_id',2)->where('approval','Approved')->orderBy('created_at','desc')->paginate(paginationcount);
+    //                     }else{
+    //                         $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->orderBy('created_at','desc')->paginate(paginationcount);
+    //                     }
+    //                     break;
+
+    //                 case 'date_asc':
+
+    //                     if($search == 'Real Estate'){
+    //                         $filtered = ads::where('category_id',1)->where('approval','Approved')->orderBy('created_at','asc')->paginate(paginationcount);
+    //                     }elseif($search == 'Cars and Spare Parts'){
+    //                         $filtered = ads::where('category_id',2)->where('approval','Approved')->orderBy('created_at','asc')->paginate(paginationcount);
+    //                     }else{
+    //                         $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->orderBy('created_at','asc')->paginate(paginationcount);
+    //                     }
+    //                     break;
+
+    //             }
+
+    //             break;
+
+    //         default:
+
+    //         switch ($way) {
+    //             case 'price_asc':
+
+    //                 if($search == 'Real Estate'){
+    //                     $filtered = ads::where('category_id',1)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('price','asc')->paginate(paginationcount);
+    //                 }elseif($search == 'Cars and Spare Parts'){
+    //                     $filtered = ads::where('category_id',2)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('price','asc')->paginate(paginationcount);
+    //                 }else{
+    //                     $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->where('governorates_id',$gov)->orderBy('price','asc')->paginate(paginationcount);
+    //                 }
+    //                 break;
+
+    //             case 'price_desc':
+
+    //                 if($search == 'Real Estate'){
+    //                     $filtered = ads::where('category_id',1)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('price','desc')->paginate(paginationcount);
+    //                 }elseif($search == 'Cars and Spare Parts'){
+    //                     $filtered = ads::where('category_id',2)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('price','desc')->paginate(paginationcount);
+    //                 }else{
+    //                     $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->where('governorates_id',$gov)->orderBy('price','desc')->paginate(paginationcount);
+    //                 }
+    //                 break;
+
+    //             case 'date_desc':
+
+    //                 if($search == 'Real Estate'){
+    //                     $filtered = ads::where('category_id',1)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('created_at','desc')->paginate(paginationcount);
+    //                 }elseif($search == 'Cars and Spare Parts'){
+    //                     $filtered = ads::where('category_id',2)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('created_at','desc')->paginate(paginationcount);
+    //                 }else{
+    //                     $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->where('governorates_id',$gov)->orderBy('created_at','desc')->paginate(paginationcount);
+    //                 }
+    //                 break;
+
+    //             case 'date_asc':
+
+    //                 if($search == 'Real Estate'){
+    //                     $filtered = ads::where('category_id',1)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('created_at','asc')->paginate(paginationcount);
+    //                 }elseif($search == 'Cars and Spare Parts'){
+    //                     $filtered = ads::where('category_id',2)->where('approval','Approved')->where('governorates_id',$gov)->orderBy('created_at','asc')->paginate(paginationcount);
+    //                 }else{
+    //                     $filtered = ads::where('title','LIKE','%'.$search.'%')->where('approval','Approved')->where('governorates_id',$gov)->orderBy('created_at','asc')->paginate(paginationcount);
+    //                 }
+    //                 break;
+
+    //         }
+
+    //             break;
+    //     }
+    //     foreach($filtered as $ad){
+    //         $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
+    //     }
+    //     return view('search_result',['search'=>$filtered,'search_title'=>$search,'gov'=>$gov]);
+    // }
+    // public function search(request $request){
+    //     if($request->gov == 0){
+    //     $search = ads::where('title','LIKE','%'.$request->keyword.'%')->where('approval','Approved')->orderBy('created_at','desc')->paginate(paginationcount);
+    //     }else{
+    //     $search = ads::where([['title','LIKE','%'.$request->keyword.'%'],['governorates_id','=',$request->gov]])->where('approval','Approved')->orderBy('created_at','desc')->paginate(paginationcount);
+    //     }
+    //     foreach($search as $ad){
+    //         $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
+    //     }
+    //     if(count($search) > 0){
+    //     return view('search_result',['search'=>$search,'search_title'=>$request->keyword,'gov'=>$request->gov]);
+    //     }else{
+    //     return view('search_result',['search_title'=>'Can\'t Find Any Ad Match Your Search']);
+    //     }
+    // }
+
+    // public function advanced_search(){
+
+    //     $categories = category::get();
+    //     $governorates = governorates::get();
+    //     $brands = car_brands::get();
+    //     return view('advanced_search',['categories'=>$categories,'governorates'=>$governorates,'brands'=>$brands]);
+    // }

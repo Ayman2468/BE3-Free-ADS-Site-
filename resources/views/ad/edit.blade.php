@@ -199,6 +199,7 @@
                                     @endforeach
                                 </div>
                                 <p class="note">*note that the first image will be the cover of the ad</p>
+                                <p class="note">*note that the allowed extensions are (.jpg .jepg .png .gif) only</p>
 
                                 <strong  id="images_error1" class="text-danger" role="alert">
                                 </strong>

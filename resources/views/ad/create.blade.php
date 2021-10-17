@@ -11,6 +11,8 @@
 
                     <div id="msg" class="alert alert-success text-center font-weight-bold" style="display: none;">
                     </div>
+                    <div id="msg2" class="alert alert-danger text-center font-weight-bold" style="display: none;">
+                    </div>
                     <form id="adform" method="POST" enctype="multipart/form-data" action="">
                         @csrf
 
@@ -147,6 +149,7 @@
                             <div class="col-md-6">
                                 <input id="images" type="file" name="images[]" multiple ">
                                 <p class="note">*note that the first image will be the cover of the ad</p>
+                                <p class="note">*note that the allowed extensions are (.jpg .jepg .png .gif) only</p>
 
                                 <strong  id="images_error" class="text-danger" role="alert">
                                 </strong>
@@ -422,6 +425,10 @@ $(document).on('click','#save',function(e){
             if(data.status==true){
                 $('#msg').show();
                 $('#msg').text(data.msg);
+            }
+            if(data.status==false){
+                $('#msg2').show();
+                $('#msg2').text(data.msg);
             }
         },
         error: function(reject){

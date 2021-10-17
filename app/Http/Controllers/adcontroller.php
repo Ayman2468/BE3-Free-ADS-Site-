@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\adviewer;
 use App\Http\Requests\adrequest;
 use App\Models\brand_models;
 use App\Models\car_brands;
@@ -11,6 +12,7 @@ use App\Models\governorates;
 use App\Models\sub_category;
 use Illuminate\Http\Request;
 use App\Models\ads;
+use App\Models\comments;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\imageinsertiontrait;
@@ -25,12 +27,14 @@ class adcontroller extends Controller
     //
     public function all()
     {
-        $allads= ads::select('id','title','details','price','images','user_id','governorates_id')->paginate(paginationcount);
+        $allads= ads::select('id','title','details','price','images','user_id','governorates_id')->where('approval','Approved')->paginate(paginationcount);
         foreach($allads as $ad){
         $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
         }
-        $allgov = governorates::get();
-        return view('home',['allads'=>$allads , 'allgov'=>$allgov]);
+        $categories = category::get();
+        $governorates = governorates::get();
+        $brands = car_brands::get();
+        return view('home',['allads'=>$allads,'categories'=>$categories,'governorates'=>$governorates,'brands'=>$brands]);
     }
     public function index(){
         $adsdata = DB::table('ads')->paginate(paginationcount);
@@ -108,6 +112,12 @@ class adcontroller extends Controller
                 $file_names .= $file_name.'-';
                 }
                 $file_names = substr($file_names,0,-1);
+                if(str_contains($file_names,'error')){
+                    return response()->json([
+                        'status' => false,
+                        'msg' => 'one or more images have wrong extension'
+                        ]);
+                }
 
         $ad=ads::create([
             'user_id'=> Auth::user()->id,
@@ -239,6 +249,12 @@ class adcontroller extends Controller
             $file_names .= $file_name.'-';
             }
             $file_names = substr($file_names,0,-1);
+            if(str_contains($file_names,'error')){
+                return response()->json([
+                    'status' => false,
+                    'msg' => 'one or more images have wrong extension'
+                    ]);
+            }
         }
 
         $oldimagesarray = explode('-',$oldimages);
@@ -328,6 +344,8 @@ class adcontroller extends Controller
 
     public function display($adid){
         $addata = ads::find($adid);
+            event(new adviewer($addata));
+
             $addata->user_created_at = User::where('id',$addata->user_id)->value('created_at');
             $addata->user_name = User::where('id',$addata->user_id)->value('user_name');
             $addata->governorates_id = governorates::where('id',$addata->governorates_id)->value('governorate_name_en');
@@ -339,40 +357,274 @@ class adcontroller extends Controller
             $addata->model = brand_models::where('id',$addata->model)->value('model');
             }
 
-        return view('ad/display',['addata'=>$addata]);
+        if(isset(Auth::user()->id)){
+            if($addata->user_id == Auth::user()->id){
+                $data = ['seen_status'=>'seen'];
+                comments::where('ad_id', $adid)->update($data);
+            }
+        }
+        $comments = comments::where('ad_id',$adid)->orderBy('created_at','desc')->get();
+            if($comments){
+                foreach($comments as $comment){
+                $comment->user_id = User::where('id',$comment->user_id)->value('user_name');
+                $tt=(strtotime(now())-strtotime($comment->created_at));
+                if($tt < 60){
+                    $x = $tt.' seconds';
+                }elseif(60 <= $tt && $tt < 3600){
+                    $tt = floor($tt/60);
+                    $x = $tt.' minutes';
+                }elseif(3600 <= $tt && $tt < 86400){
+                    $tt = floor($tt/3600);
+                    $x = $tt.' hours';
+                }elseif(86400 <= $tt && $tt < 1036800){
+                    $tt = floor($tt/86400);
+                    $x = $tt.' months';
+                }
+                $comment['date'] = $x;
+            }
+        }
+        return view('ad/display',['addata'=>$addata,'comments'=>$comments]);
     }
 
-    // public function filter(Request $request , $int){
-    //     if($int == 1){
-    //         $array = $request->search->orderby('price');
-    //         $search = $array;
-    //     }
-    //     return $search;
-    // }
-    public function search(request $request){
-        if($request->gov == 0){
-        $search = ads::where('title','LIKE','%'.$request->keyword.'%')->paginate(paginationcount);
+    public function advance(Request $request)
+    {
+        switch ($request->order) {
+            case 'date_desc':
+                $by = 'created_at';
+                $way = 'desc';
+                break;
+            case 'date_asc':
+                $by = 'created_at';
+                $way = 'asc';
+                break;
+            case 'price_asc':
+                $by = 'price';
+                $way = 'asc';
+                break;
+            case 'price_desc':
+                $by = 'price';
+                $way = 'desc';
+                break;
+        }
+        if($request->category == 1){
+            $request->brand = null;
+            $request->model = null;
+            $request->condition = null;
+        }
+        if($request->sub_category == 3 || $request->category == 1){
+            $request->engine = null;
+            $request->body_type = null;
+            $request->fuel = null;
+            $request->transmition = null;
+        }
+        if($request->category == 2 || $request->real_estate_type == 'Land'){
+            $request->furnished = null;
+            $request->floor = null;
+        }
+        if($request->category == 2){
+            $request->real_estate_type = null;
+            $request->space = null;
+        }
+        if($request->real_estate_type == 'Land'){
+            $request->from_year = null;
+            $request->to_year = null;
+        }
+
+        $keyword = $request->keyword;
+
+        $category = $request->category;
+        if($category == 0){
+            $category = ads::pluck('category_id');
+        }
+        else{
+            $category = explode(',',$category);
+        }
+
+        $sub_category = $request->sub_category;
+        if($sub_category == 0){
+            $sub_category = ads::pluck('sub_category_id');
         }else{
-        $search = ads::where([['title','LIKE','%'.$request->keyword.'%'],['governorates_id','=',$request->gov]])->paginate(paginationcount);
+            $sub_category = explode(',',$sub_category);
         }
-        foreach($search as $ad){
-            $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
-        }
-        if(count($search) > 0){
-        return view('search_result',['search'=>$search,'search_title'=>$request->keyword]);
+        $governorate = $request->governorate;
+        if($governorate == 0){
+            $governorate = ads::pluck('governorates_id');
         }else{
-        return view('search_result',['search_title'=>'Can\'t Find Any Ad Match Your Search']);
+            $governorate = explode(',',$governorate);
         }
+        $city = $request->city;
+        if($city == 0){
+            $city = ads::pluck('cities_id');
+        }else{
+            $city = explode(',',$city);
+        }
+        $from_year = $request->from_year;
+        $to_year = $request->to_year;
+        $min_price = $request->min_price;
+        if($min_price == null){
+            $min_price = 0;
+        }
+        $max_price = $request->max_price;
+        if($max_price == null){
+            $max_price = 10000000000000;
+        }
+        $brand = $request->brand;
+        if($brand == 0){
+            $brand = ads::pluck('brand');
+        }else{
+            $brand = explode(',',$brand);
+        }
+        $model = $request->model;
+        if($model == 0){
+            $model = ads::pluck('model');
+        }else{
+            $model = explode(',',$model);
+        }
+        $condition = $request->condition;
+        if($condition == 0){
+            $condition = ads::pluck('condition1');
+        }else{
+            $condition = explode(',',$condition);
+        }
+        $engine = $request->engine;
+        if($engine == 0){
+            $engine = ads::pluck('engine');
+        }else{
+            $engine = explode(',',$engine);
+        }
+        $body_type = $request->body_type;
+        if($body_type == 0){
+            $body_type = ads::pluck('body_type');
+        }else{
+            $body_type = explode(',',$body_type);
+        }
+        $transmition = $request->transmition;
+        if($transmition == 0){
+            $transmition = ads::pluck('transmition');
+        }else{
+            $transmition = explode(',',$transmition);
+        }
+        $fuel = $request->fuel;
+        if($fuel == 0){
+            $fuel = ads::pluck('fuel');
+        }else{
+            $fuel = explode(',',$fuel);
+        }
+        $real_estate_type = $request->real_estate_type;
+        if($real_estate_type == 0){
+            $real_estate_type = ads::pluck('real_estate_type');
+        }else{
+            $real_estate_type = explode(',',$real_estate_type);
+        }
+        $space = $request->space;
+        if($space == null){
+            $space = ads::pluck('space');
+        }else{
+            $space = explode(',',$space);
+        }
+        $floor = $request->floor;
+        if($floor == 0){
+            $floor = ads::pluck('floor');
+        }else{
+            $floor = explode(',',$floor);
+        }
+        $furnished = $request->furnished;
+        if($furnished == 0){
+            $furnished = ads::pluck('furnished');
+        }else{
+            $furnished = explode(',',$furnished);
+        }
+
+        $categories = category::get();
+        $governorates = governorates::get();
+        $brands = car_brands::get();
+
+        switch ($request->category) {
+            case 1:
+
+                $search = ads::where('approval','Approved')
+                ->whereBetween('year', [$from_year,$to_year])
+                ->whereBetween('price', [$min_price,$max_price])
+                ->where('title','LIKE',"%".$keyword."%")
+                ->whereIn('category_id', $category)
+                ->whereIn('sub_category_id', $sub_category)
+                ->whereIn('governorates_id', $governorate)
+                ->whereIn('cities_id', $city)
+                ->whereIn('real_estate_type', $real_estate_type)
+                ->whereIn('space', $space)
+                //->whereIn('floor', $floor)
+                //->whereIn('furnished', $furnished)
+                ->orderBy($by,$way)
+                ->paginate(paginationcount);
+
+                foreach($search as $ad){
+                        $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
+                }
+
+                return view('search_result',['search'=>$search,'search_title'=>$keyword,'categories'=>$categories,'governorates'=>$governorates,'brands'=>$brands]);
+                break;
+
+            case 2:
+
+                $search = ads::where('approval','Approved')
+                        ->whereBetween('year', [$from_year,$to_year])
+                        ->whereBetween('price', [$min_price,$max_price])
+                        ->where('title','LIKE',"%".$keyword."%")
+                        ->whereIn('category_id', $category)
+                        ->whereIn('sub_category_id', $sub_category)
+                        ->whereIn('governorates_id', $governorate)
+                        ->whereIn('cities_id', $city)
+                        ->whereIn('brand', $brand)
+                        ->whereIn('model', $model)
+                        ->whereIn('condition1', $condition)
+                        ->whereIn('engine', $engine)
+                        ->whereIn('body_type', $body_type)
+                        ->whereIn('transmition', $transmition)
+                        ->whereIn('fuel', $fuel)
+                        ->orderBy($by,$way)
+                        ->paginate(paginationcount);
+
+                    foreach($search as $ad){
+                        $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
+                    }
+
+                        return view('search_result',['search'=>$search,'search_title'=>$keyword,'categories'=>$categories,'governorates'=>$governorates,'brands'=>$brands]);
+                        break;
+
+            default:
+
+            $search = ads::where('approval','Approved')
+                ->whereBetween('year', [$from_year,$to_year])
+                ->whereBetween('price', [$min_price,$max_price])
+                ->where('title','LIKE',"%".$keyword."%")
+                ->whereIn('category_id', $category)
+                ->whereIn('sub_category_id', $sub_category)
+                ->whereIn('governorates_id', $governorate)
+                ->whereIn('cities_id', $city)
+                ->orderBy($by,$way)
+                ->paginate(paginationcount);
+
+            foreach($search as $ad){
+                $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
+            }
+
+                return view('search_result',['search'=>$search,'search_title'=>$keyword,'categories'=>$categories,'governorates'=>$governorates,'brands'=>$brands]);
+            break;
+        }
+
     }
 
     public function searchcat($int){
-            $search = ads::where('category_id',$int)->paginate(paginationcount);
+            $search = ads::where('category_id',$int)->where('approval','Approved')->orderBy('created_at','desc')->paginate(paginationcount);
             $search_title = category::where('id',$int)->value('category_en');
             foreach($search as $ad){
                 $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_en');
             }
+            $categories = category::get();
+            $governorates = governorates::get();
+            $brands = car_brands::get();
             if(count($search) > 0){
-                return view('search_result',['search'=>$search,'search_title'=>$search_title]);
+                return view('search_result',['search'=>$search,'search_title'=>$search_title,'categories'=>$categories,'governorates'=>$governorates,'brands'=>$brands]);
                 }else{
                 return view('search_result',['search_title'=>'Can\'t Find Any Ad Match Your Search']);
                 }
@@ -409,5 +661,18 @@ class adcontroller extends Controller
         $subcategories['data']=$subcategory;
         return response($subcategories);
         exit;
+    }
+
+    public function approve($adid)
+    {
+        $find = ads::find($adid);
+        if(!$find){
+            return redirect()->back()->with(['message1' => __('msg.AD doesn\'t exist')]);
+        }
+        $data=[
+            'approval'=>'Approved'
+        ];
+        $op = ads::where('id',$adid)->update($data);
+        return redirect()->back()->with(['message'=>_('msg.AD Approved')]);
     }
 }

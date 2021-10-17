@@ -30,7 +30,7 @@
                     <a class="text-dark" href="#">Seller Ads</a>
                 </div>
 
-                <div id='phone' class="col-10 pt-2 pb-2 ml-auto mr-auto mb-2 text-center bg-primary">
+                <div id='phone' class="col-10 pt-2 pb-2 ml-auto mr-auto mb-2 text-center bg-primary cursor">
                     <i class="text-white mr-1 fas fa-phone-alt"></i>
                     <span id='encrypted'>01XXXXXXXXXXX</span>
                     <span id='reveal'>@if (isset(Auth::user()->id)){{$addata->mobile}}@endif</span>
@@ -178,21 +178,39 @@
                     @endforeach
                 </div>
                 <div class="col-12">
-                    <span class="font-weight-bold text-dark">seen:{{--how many times this ad was opened--}}</span>{{--seen counter--}}
+                    <span class="font-weight-bold text-dark">seen: {{$addata->viewers}}</span>
                 </div>
 
                 @if (isset(Auth::user()->email))
                 <div class="col-12 mt-4">
-                    <h5 class="text-dark">Send Message To The Seller</h5>
+                    <h5 class="text-dark">Send Comment / Offer To The Owner</h5>
                     <div class="msg col-12 mb-4 d-flex">
-                        <form action="" method="POST">
-                            <input class="mt-2 rounded col-10" type="email" name="email" placeholder="your e-mail" value="{{Auth::user()->email}}">
-                            <textarea class="mt-2 rounded col-12" name="email-content" cols="30" rows="10" placeholder="what do you want to say">{{old('email-content')}}</textarea>
+                        <form action="{{route('comment.store',$addata->id)}}" method="POST">
+                            @csrf
+                            <input type="text" value="{{$addata->user_id}}" name="owner_id" hidden>
+                            <textarea class="mt-2 rounded col-12" name="comment" cols="30" rows="10" placeholder="what do you want to say">{{old('email-content')}}</textarea>
+                            <p class="note">* note that you can't edit you comment / offer after being added</p>
                             <button type="submit" class="btn btn-primary mt-2 mb-2 text-end">
                                 <i class="fas fa-envelope"></i>
-                                Send
+                                Add
                             </button>
                         </form>
+                    </div>
+                    <div class="col-12">
+                        <h5 id="comments" class="text-dark">Comments</h5>
+                        @foreach ($comments as $comment)
+                            <div>
+                                <h6 class="rounded-pill text-white bg-secondary p-2 d-inline-block">
+                                    {{$comment->user_id}}
+                                </h6>
+                                <p>
+                                    {{$comment->comment}}
+                                </p>
+                                <p class="text-right">
+                                    {{$comment->date}}
+                                </p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 @endif

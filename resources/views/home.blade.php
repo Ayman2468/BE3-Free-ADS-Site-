@@ -7,7 +7,7 @@
             Place your ad here
         </a>
     </div>
-    <div class="d-flex flex-column flex-wrap justify-content-around">
+    {{-- <div class="d-flex flex-column flex-wrap justify-content-around">
         <form method="post" action="{{route('search')}}">
             @csrf
                 <div class="search msg pt-2 pb-2 mr-auto ml-auto col-11 d-flex flex-sm-column flex-md-row justify-content-center align-items-center">
@@ -23,7 +23,8 @@
                     </button>
                 </div>
         </form>
-    </div>
+    </div> --}}
+    @include('advanced_search')
     <div class="divisions d-flex flex-sm-column flex-md-row mb-4 justify-content-around">
         <div class="m-2">
             <a href="{{route('searchcat',1)}}">

@@ -109,8 +109,8 @@
     <div class="col-md-6">
         <select id="transmition" class="form-control text-muted" name="transmition"  >
             <option disabled selected>Choose Transmition Type</option>
-            <option value="{{'Automatic'}}">{{'Automatic'}}</option>
-            <option value="{{'Manual'}}">{{'Manual'}}</option>
+            <option value="Automatic">{{'Automatic'}}</option>
+            <option value="Manual">{{'Manual'}}</option>
         </select>
 
         <strong  id="transmition_error" class="text-danger" role="alert">
