@@ -84,6 +84,22 @@ ul{
     color: #484848;
 }
 
+.V-ad{
+    margin: 20px 0px;
+    min-width: 150px;
+    height: 150vh;
+    border: thin solid rgb(48, 48, 48);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    color: #484848;
+}
+.V-ad:hover{
+    color: #484848;
+}
+
 textarea{
     height: 140px !important;
     resize: none !important;
@@ -106,9 +122,6 @@ textarea{
     width: 340px !important;
     color: #343a40;
     box-shadow: 1px 2px 13px -8px rgba(0,0,0,0.5);
-    /* origin display is block as origin is for mobile when bigger resolutions it must be display:inline-block;
-    width: 18rem;
-    card will be visible*/
 }
 .min-ad:hover{
     color: #343a40;
@@ -138,16 +151,23 @@ textarea{
 }
 
 .ad-main-body div a{
-    background-color: #F8F8F8;
     color: #ff7777;
     text-decoration: none;
 }
 .ad-main-body div a:hover i,.ad-main-body div a:hover{
     color: #ff0000;
 }
-.ad-main-body div a i{
-    color: #ff7777;
+.ad-main-body .links{
+    background-color: #F8F8F8;
 }
+
+.ad-main-body .links .edit{
+    color: #7780ff;
+}
+.ad-main-body .links .edit:hover i,.ad-main-body .links .edit:hover{
+    color: #0011ff;
+}
+
 
 .msg{
     background-color: lightblue;

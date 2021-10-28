@@ -24,7 +24,7 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.css.map') }}" rel="stylesheet">
 </head>
-<body>
+<body dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
@@ -37,78 +37,102 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav col-0 col-md-4">
 
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto text-center">
+                    <ul class="navbar-nav p-0 col-12 col-md-8 text-center d-flex flex-row justify-content-around justify-content-md-center align-items-center">
+                        <div>
+                            <li class="nav-item dropdown">
+
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{__('msg.Language')}}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
+                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <div class="text-center">
+                                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                {{ $properties['native'] }}
+                                            </a>
+                                    </div>
+                                    <br>
+                                    @endforeach
+                            </div>
+                            </li>
+                        </div>
+
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('msg.Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('msg.Register') }}</a>
                                 </li>
                             @endif
                         @else
-                        <li class="dropdown dropdown-notification nav-item  dropdown-notifications">
-                            <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
-                                <i class="fa fa-bell"> </i>
-                                <span
-                                class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow   notif-count"
-                                    data-count="0">{{count(App\models\comments::where([['owner_id','=',Auth::user()->id],
-                                    ['seen_status','=','not seen']])->get())}}</span>
-                                </a>
-                        @if (null !== ($comments = App\models\comments::where('owner_id',Auth::user()->id)->take(15)->get()))
-                        <ul class="dropdown-menu dropdown-menu-right width">
-                            <li class="dropdown-menu-header">
-                                <h6 class="dropdown-header m-0 text-center">
-                                    <span class="grey darken-2 text-center">Notifications</span>
-                                </h6>
-                            </li>
-                            @foreach ($comments as $comment)
-                                        <li class="scrollable-container ps-container ps-active-y media-list w-100">
-                                            <a class="text-decoration-none" href="{{url('ad/display/'.$comment->ad_id.'#comments')}}">
-                                                        @if ($comment->seen_status == 'not seen')
-                                                        <div class="media msg">
-                                                            <div class="media-body">
-                                                        <p class="media-heading font-weight-bold note mb-0">
-                                                            {{App\models\User::where('id',$comment->user_id)->value('user_name')}}{{ __(' msg.commented on your ad')}}
-                                                        </p>
-                                                        <p class="note text-muted d-block">
-                                                            {{substr($comment->comment,0,15).'...'}}
-                                                        </p>
+                        <div>
+                            <li class="nav-item dropdown">
+
+                            <a id="navbarDropdown" class="nav-link" href="#" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa fa-bell"> </i>
+                                    <span
+                                    class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow"
+                                        data-count="0">{{count(App\models\comments::where([['owner_id','=',Auth::user()->id],
+                                        ['seen_status','=','not seen']])->get())}}</span>
+                            </a>
+
+                            @if (null !== ($comments = App\models\comments::where('owner_id',Auth::user()->id)->orderBy('created_at','desc')->get()))
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-menu-header">
+                                        <h6 class="dropdown-header m-0 text-center">
+                                            <span class="grey darken-2 text-center">{{__('msg.Notifications')}}</span>
+                                        </h6>
+                                    </li>
+                                    @foreach ($comments as $comment)
+                                            <li class="scrollable-container ps-container ps-active-y media-list w-100">
+                                                <a class="text-decoration-none" href="{{url('ad/display/'.$comment->ad_id.'#comments')}}">
+                                                @if ($comment->seen_status == 'not seen')
+                                                    <div class="media msg">
+                                                        <div class="media-body">
+                                                            <p class="media-heading font-weight-bold note mb-0">
+                                                                {{App\models\User::where('id',$comment->user_id)->value('user_name')}}{{ __(' msg.commented on your ad')}}
+                                                            </p>
+                                                            <p class="note text-muted d-block">
+                                                                {{substr($comment->comment,0,15).'...'}}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                        @else
-                                                        <div class="media">
-                                                            <div class="media-body">
-                                                        <p class="media-heading font-weight-bold note text-dark mb-0">
-                                                            {{App\models\User::where('id',$comment->user_id)->value('user_name')}}{{ __(' msg.commented on your ad')}}
-                                                        </p>
-                                                        <p class="note text-muted d-block">
-                                                            {{substr($comment->comment,0,15).'...'}}
-                                                        </p>
+                                                @else
+                                                            <div class="media">
+                                                                <div class="media-body">
+                                                            <p class="media-heading font-weight-bold note text-dark mb-0">
+                                                                {{App\models\User::where('id',$comment->user_id)->value('user_name')}}{{ __(' msg.commented on your ad')}}
+                                                            </p>
+                                                            <p class="note text-muted d-block">
+                                                                {{substr($comment->comment,0,15).'...'}}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                        @endif
-                                            </a>
-                                        </li>
-                                        @endforeach
-                                        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                            href=""> All Notifications </a>
-                                        </li>
-                                    </ul>
+                                                @endif
+                                                </a>
+                                            </li>
+                                    @endforeach
+                                            {{-- <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
+                                                href=""> {{__('msg.All Notifications')}} </a>
+                                            </li> --}}
+                                </ul>
                             @endif
-                        </li>
+                            </li>
+                        </div>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('ad/create')}}">Place Ad</a>
+                                <a class="nav-link" href="{{url('ad/create')}}">{{__('msg.Place Ad')}}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -119,26 +143,26 @@
                                     @if (session()->get('admindata'))
                                     @if (session()->get('admindata')->position == 'master')
                                     <a class="dropdown-item" href="{{ url('user/index') }}">
-                                        {{ __('All Users') }}
+                                        {{ __('msg.All Users') }}
                                     </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ url('admin/index') }}">
-                                        {{ __('All Admins') }}
+                                        {{ __('msg.All Admins') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ url('category/index') }}">
-                                        {{ __('All Categories') }}
+                                        {{ __('msg.All Categories') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ url('ad/index') }}">
-                                        {{ __('All ADs Control') }}
+                                        {{ __('msg.All Ads Control') }}
                                     </a>
                                     @endif
                                     @if (null == session()->get('admindata'))
                                     <a class="dropdown-item" href="{{ url('admin/adminlogin') }}">
-                                        {{ __('Admin Login') }}
+                                        {{ __('msg.Admin Login') }}
                                     </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ url('user/display') }}">
-                                        {{ __('My Data') }}
+                                        {{ __('msg.My Data') }}
                                     </a>
                                     <a href='{{ url('user/ads/'.Auth::user()->id) }}' class="dropdown-item">
                                         {{__('msg.My Ads')}}
@@ -147,7 +171,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('msg.Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -161,67 +185,57 @@
             </div>
         </nav>
     </div>
-        <main>
+        <main class="@if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">
             @yield('content')
         </main>
     <div class="footer">
         <div class="container">
-            <div>
+            <div class="@if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">
                 <hr class="mt-0">
                 <p>
-                    Do you want to sell your real estate or car? , BE3 is the best site to do that.
+                    {{__('msg.Do you want to sell your real estate or car?! BE3 is the best site to do that.')}}
                 </p>
                 <hr>
                 <p>
-                    <span class="font-weight-bold text-dark">main categories :</span> <a href="{{url('real-estate')}}">Real Estate</a> , <a href="{{url('cars')}}">Cars and Spare Parts</a>
+                    <span class="font-weight-bold text-dark">{{__('msg.main categories')}} :</span> <a href="{{route('searchcat',1)}}">{{__('msg.Real Estate')}}</a> , <a href="{{route('searchcat',2)}}">{{__('msg.Cars and Spare Parts')}}</a>
                 </p>
                 <hr>
                 <footer class="d-flex flex-column justify-content-around">
-                    <div class="display-4 font-weight-bold text-dark">
-                        BE3
+                    <div class="display-4 mb-3 font-weight-bold text-dark">
+                        {{__('msg.BE3')}}
                     </div>
                     <div>
                         <ul class="list-disc">
                             <li>
-                                <a href="{{url('safety')}}">Safety Rules</a>
+                                <a href="{{url('safety')}}">{{__('msg.Safety Rules')}}</a>
                             </li>
                             <li>
-                                <a href="{{url('terms')}}">Use Terms</a>
+                                <a href="{{url('terms')}}">{{__('msg.Use Terms')}}</a>
                             </li>
                             <li>
-                                <a href="{{url('privacy')}}">Privacy Policy</a>
+                                <a href="{{url('privacy')}}">{{__('msg.Privacy Policy')}}</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <ul class="list-disc">
                             <li>
-                                <a href="{{url('contact')}}">Contact US</a>
+                                <a href="{{url('contact')}}">{{__('msg.Contact US')}}</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{url('payment')}}">
-                                    Make Special Paid Ads For Month
+                                    {{__('msg.Make Special Paid Ads For Month')}}
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </footer>
             </div>
         </div>
-        <p class="rights">&copy; All Rights Reserved To Site Creator Ayman Safwat</p>
+        <p class="rights">&copy; {{__('msg.All Rights Reserved To Site Creator Ayman Safwat')}}</p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @yield('script')
 
-    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-        var pusher = new Pusher('3dd16575fd82debf185d', {
-            cluster: 'mt1',
-            encrypted: false
-        });
-        </script>
-        <script src="{{asset('js/pusherNotifications.js')}}"></script> --}}
 </body>
 </html>

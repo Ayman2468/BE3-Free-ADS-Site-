@@ -115,7 +115,6 @@ class adrequest extends FormRequest
             "mobile.required" => __('msg.The Mobile Number of The Owner Required'),
             "mobile.min" => __('msg.Mobile Number Must be at Least Be 11 Digits'),
             "mobile.max" => __('msg.Mobile Number Must be Less Than 14 Digits'),
-            "mobile.max" => __('msg.Mobile Number Must be Less Than 14 Digits'),
             "mobile.numeric" => __('msg.Mobile Number Must be Numbers Only'),
             "mobile.starts_with" => __('msg.Mobile Number Must Start With 0'),
             "real_estate_type.required_if" => __('msg.The Type of The Real Estate Required'),

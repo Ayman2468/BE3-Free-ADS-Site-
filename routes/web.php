@@ -21,6 +21,7 @@ Route::group([
     'prefix' => FacadesLaravelLocalization::setlocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ],function(){
+    Auth::routes(['verify' => true]);
 Route::get('safety', function () {
     return view('rules.safety');
 });
@@ -71,8 +72,8 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('doreset/{userid}', 'App\Http\Controllers\usercontroller@doreset')->name('user.doreset');
         Route::get('delete/{userid}', 'App\Http\Controllers\usercontroller@destroy');
         Route::get('display', 'App\Http\Controllers\usercontroller@userdisplay');
-        Route::get('ads/{user_id}', 'App\Http\Controllers\usercontroller@ads')->name('user.ads');
     });
+    Route::get('ads/{user_id}', 'App\Http\Controllers\usercontroller@ads')->name('user.ads');
     Route::get('index', 'App\Http\Controllers\usercontroller@index')->middleware('mainadmin');
 });
 
@@ -93,7 +94,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::prefix('ad')->group(function () {
     Route::middleware(['auth'])->group(function () {
-        Route::get('create','App\Http\Controllers\adcontroller@create');
+        Route::get('create','App\Http\Controllers\adcontroller@create')->middleware('verified');
         Route::get('edit/{adid}','App\Http\Controllers\adcontroller@edit');
         Route::post('store','App\Http\Controllers\adcontroller@store')->name('ad.store');
         Route::post('update/{adid}','App\Http\Controllers\adcontroller@update')->name('ad.update');
@@ -106,7 +107,9 @@ Route::prefix('ad')->group(function () {
     Route::post('gov/{govid}','App\Http\controllers\adcontroller@gov')->name('gov');
     Route::post('cat/{catid}','App\Http\controllers\adcontroller@cat')->name('cat');
     Route::get('searchcat/{int}','App\Http\controllers\adcontroller@searchcat')->name('searchcat');
-    Route::post('advance','App\Http\controllers\adcontroller@advance')->name('ad.advance');
+    Route::get('searchsubcat/{int}','App\Http\controllers\adcontroller@searchsubcat')->name('searchsubcat');
+    Route::get('searchcity/{int}','App\Http\controllers\adcontroller@searchcity')->name('searchcity');
+    Route::get('advance','App\Http\controllers\adcontroller@advance');
 });
 
 Route::get('payment','App\Http\Controllers\paymentcontroller@paymentform');

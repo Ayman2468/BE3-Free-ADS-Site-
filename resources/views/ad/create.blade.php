@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Create Ad') }}</div>
+                <div class="card-header @if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">{{ __('msg.Create Ad') }}</div>
 
                 <div class="card-body">
 
@@ -17,10 +17,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('msg.Title') }}</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title"  autocomplete="title" placeholder="Write The Title of Your Ad" autofocus>
+                                <input id="title" type="text" class="form-control" name="title"  autocomplete="title" placeholder="{{__('msg.Write The Title of Your Ad')}}" autofocus>
 
                                 <strong  id="title_error" class="text-danger" role="alert">
                                 </strong>
@@ -28,13 +28,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('msg.Category') }}</label>
 
                             <div class="col-md-6">
                                 <select id="category" class="form-control text-muted" name="category">
-                                    <option disabled selected>Choose Category</option>
+                                    <option disabled selected>{{__('msg.Choose Category')}}</option>
                                     @foreach ( $categories as $category)
-                                    <option class="{{$category->id}}" value="{{$category->id}}">{{$category->category_en}}</option>
+                                    <option class="{{$category->id}}" value="{{$category->id}}">{{$category['category_'.LaravelLocalization::getcurrentlocale()]}}</option>
                                     @endforeach
                                 </select>
 
@@ -44,11 +44,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="sub_category" class="col-md-4 col-form-label text-md-right">{{ __('Sub Category') }}</label>
+                            <label for="sub_category" class="col-md-4 col-form-label text-md-right">{{ __('msg.Sub Category') }}</label>
 
                             <div class="col-md-6">
                                 <select id="sub_category" class="form-control text-muted" name="sub_category"  >
-                                    <option disabled selected>Choose Sub Category</option>
+                                    <option disabled selected>{{__('msg.Choose Sub Category')}}</option>
                                 </select>
 
                                 <strong  id="sub_category_error" class="text-danger" role="alert">
@@ -67,11 +67,11 @@
                         {{-- End of Changeable Section --}}
 
                         <div id="year" class="form-group row">
-                            <label for="year1" class="col-md-4 col-form-label text-md-right">{{ __('Year') }}</label>
+                            <label for="year1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Year') }}</label>
 
                             <div class="col-md-6">
                                 <select id="year1" class="form-control text-muted" name="year"  >
-                                    <option disabled selected>Choose Year</option>
+                                    <option disabled selected>{{__('msg.Choose Year')}}</option>
                                     @for ($i = date("Y")+1; $i>=date("Y")-100;$i--)
                                         <option value="{{$i}}">
                                                 {{$i}}
@@ -85,14 +85,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="payment_method" class="col-md-4 col-form-label text-md-right">{{ __('Payment Method') }}</label>
+                            <label for="payment_method" class="col-md-4 col-form-label text-md-right">{{ __('msg.Payment Method') }}</label>
 
                             <div class="col-md-6">
                                 <select id="payment_method" class="form-control text-muted" name="payment_method"  >
-                                    <option disabled selected>Choose Payment Method</option>
-                                    <option value="cash">Cash</option>
-                                    <option value="installment">Installment</option>
-                                    <option value="cash & installment">Cash & Installment</option>
+                                    <option disabled selected>{{__('msg.Choose Payment Method')}}</option>
+                                    <option value="Cash">{{__('msg.Cash')}}</option>
+                                    <option value="Installment">{{__('msg.Installment')}}</option>
+                                    <option value="Cash & Installment">{{__('msg.Cash & Installment')}}</option>
                                 </select>
 
                                 <strong  id="payment_method_error" class="text-danger" role="alert">
@@ -101,18 +101,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="receiving_date" class="col-md-4 col-form-label text-md-right">{{ __('Receiving Date') }}</label>
+                            <label for="receiving_date" class="col-md-4 col-form-label text-md-right">{{ __('msg.Receiving Date') }}</label>
 
                             <div class="col-md-6">
                                 <select id="receiving_date" class="form-control text-muted" name="receiving_date"  >
-                                    <option value="immediately" selected>Immediately</option>
-                                    <option value="within a week">Within a week</option>
-                                    <option value="within a month">Within a month</option>
-                                    <option value="within a year">Within a year</option>
-                                    <option value="within a 2 years">Within a 2 years</option>
-                                    <option value="within a 3 years">Within a 3 years</option>
-                                    <option value="within a 4 years">Within a 4 years</option>
-                                    <option value="within a 5 years">Within a 5 years</option>
+                                    <option value="Immediately" selected>{{__('msg.Immediately')}}</option>
+                                    <option value="Within a week">{{__('msg.Within a week')}}</option>
+                                    <option value="Within a month">{{__('msg.Within a month')}}</option>
+                                    <option value="Within a year">{{__('msg.Within a year')}}</option>
+                                    <option value="Within a 2 years">{{__('msg.Within a 2 years')}}</option>
+                                    <option value="Within a 3 years">{{__('msg.Within a 3 years')}}</option>
+                                    <option value="Within a 4 years">{{__('msg.Within a 4 years')}}</option>
+                                    <option value="Within a 5 years">{{__('msg.Within a 5 years')}}</option>
                                 </select>
 
                                 <strong  id="receiving_date_error" class="text-danger" role="alert">
@@ -121,10 +121,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price / Advance Payment') }}</label>
+                            <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('msg.Price / Advance Payment') }}</label>
 
                             <div class="col-md-6">
-                                <input id="price" type="text" class="form-control" name="price" autocomplete="price" placeholder="Price or ( Advance Payment If Installment )" autofocus>
+                                <input id="price" type="text" class="form-control" name="price" autocomplete="price" placeholder="{{__('msg.Price or ( Advance Payment If Installment )')}}" autofocus>
 
                                 <strong  id="price_error" class="text-danger" role="alert">
                                 </strong>
@@ -132,7 +132,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="details" class="col-md-4 col-form-label text-md-right">{{ __('Details') }}</label>
+                            <label for="details" class="col-md-4 col-form-label text-md-right">{{ __('msg.Details') }}</label>
 
                             <div class="col-md-6">
                                 <textarea id="details" type="text" class="form-control" name="details"  data-mintext="10" data-maxtext="4000" cols="80" rows="1">
@@ -144,25 +144,28 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="images" class="col-md-4 col-form-label text-md-right">{{ __('Add images of what you are selling') }}</label>
+                            <label for="images" class="col-md-4 col-form-label text-md-right">{{ __('msg.Add images of what you are selling') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="images" type="file" name="images[]" multiple ">
-                                <p class="note">*note that the first image will be the cover of the ad</p>
-                                <p class="note">*note that the allowed extensions are (.jpg .jepg .png .gif) only</p>
+                            <div class="col-md-6 @if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">
+                                <label class="btn bg-light">
+                                    {{__('msg.upload...')}}
+                                <input id="images" type="file" name="images[]" multiple hidden>
+                                </label>
+                                <p class="note">{{__('msg.*note that the first image will be the cover of the ad')}}</p>
+                                <p class="note">{{__('msg.*note that the allowed extensions are (.jpg .jepg .png .gif) only')}}</p>
 
                                 <strong  id="images_error" class="text-danger" role="alert">
                                 </strong>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="governorate" class="col-md-4 col-form-label text-md-right">{{ __('Governorate') }}</label>
+                            <label for="governorate" class="col-md-4 col-form-label text-md-right">{{ __('msg.Governorate') }}</label>
 
                             <div class="col-md-6">
                                 <select id="governorate" class="form-control text-muted" name="governorate"  >
-                                    <option disabled selected>Choose Governorate</option>
+                                    <option disabled selected>{{__('msg.Choose Governorate')}}</option>
                                     @foreach ( $governorates as $governorate)
-                                    <option class="{{$governorate->id}}" value="{{$governorate->id}}">{{$governorate->governorate_name_en}}</option>
+                                    <option class="{{$governorate->id}}" value="{{$governorate->id}}">{{$governorate['governorate_name_'.LaravelLocalization::getcurrentlocale()]}}</option>
                                     @endforeach
                                 </select>
 
@@ -172,11 +175,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
+                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('msg.City') }}</label>
 
                             <div class="col-md-6">
                                 <select id="city" class="form-control text-muted" name="city"  >
-                                    <option disabled selected>Choose City</option>
+                                    <option disabled selected>{{__('msg.Choose City')}}</option>
                                 </select>
 
                                 <strong  id="city_error" class="text-danger" role="alert">
@@ -185,10 +188,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
+                            <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('msg.Mobile') }}</label>
 
                             <div class="col-md-6">
-                                <input id="mobile" type="text" class="form-control" name="mobile"  autocomplete="mobile" placeholder="Mobile of The Owner">
+                                <input id="mobile" type="text" class="form-control" name="mobile"  autocomplete="mobile" placeholder="{{__('msg.Mobile of The Owner')}}">
 
                                 <strong  id="mobile_error" class="text-danger" role="alert">
                                 </strong>
@@ -196,18 +199,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="call1" class="col-md-4 col-form-label text-md-right">{{ __('Calling') }}</label>
+                            <label for="call1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Calling') }}</label>
 
-                            <div class="col-md-6">
-                                <label><input type="radio" class="mt-3 ml-2 mr-2" name="call1" value="Allowed" checked>{{('Allow Calls')}}</label>
-                                <label><input type="radio" class="mt-3 ml-2 mr-2" name="call1" value="Not Allowed" >{{('Don\'t Allow Calls')}}</label>
+                            <div class="col-md-6 @if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">
+                                <label><input type="radio" class="mt-3 ml-2 mr-2" name="call1" value="Allowed" checked>{{__('msg.Allow Calls')}}</label>
+                                <label><input type="radio" class="mt-3 ml-2 mr-2" name="call1" value="Not Allowed" >{{__('msg.Don\'t Allow Calls')}}</label>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <button id="save" type="submit" class="btn btn-primary">
-                                    {{ __('Add') }}
+                                    {{ __('msg.Add') }}
                                 </button>
                             </div>
                         </div>
@@ -291,10 +294,9 @@ $(document).ready(function() {
                         for(var i=0 ; i<len ; i++){
                             var id = response['data'][i].id;
                             var governorate_id = response['data'][i].governorate_id;
-                            var city_name_en = response['data'][i].city_name_en;
-                            var city_name_ar = response['data'][i].city_name_ar;
+                            var city = response['data'][i].city;
 
-                            var option = "<option value="+id+">"+city_name_en+"</option";
+                            var option = "<option value="+id+">"+city+"</option";
 
                                 $('#city').append(option);
                         }
@@ -347,10 +349,9 @@ $(document).ready(function() {
                         for(var i=0 ; i<len ; i++){
                             var id = response['data'][i].id;
                             var category_id = response['data'][i].category_id;
-                            var sub_category_en = response['data'][i].sub_category_en;
-                            var sub_category_ar = response['data'][i].sub_category_ar;
+                            var sub_category = response['data'][i].sub_category;
 
-                            var option = "<option value="+id+">"+sub_category_en+"</option";
+                            var option = "<option value="+id+">"+sub_category+"</option";
 
                                 $('#sub_category').append(option);
                         }

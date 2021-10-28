@@ -49,7 +49,7 @@ class sub_categorycontroller extends Controller
         ];
         $op = sub_category::where('id', $sub_categoryid)->update($data);
         if ($op) {
-            $message = __('msg.user data updated successfully');
+            $message = __('msg.sub category updated successfully');
         } else {
             $message = __("msg.no change in data happened");
         }

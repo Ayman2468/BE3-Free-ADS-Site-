@@ -1,5 +1,5 @@
 <div class="form-group row">
-    <label for="brand1" class="col-md-4 col-form-label text-md-right">{{ __('Brand') }}</label>
+    <label for="brand1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Brand') }}</label>
 
     <div class="col-md-6">
         <select id="brand1" class="form-control text-muted" name="brand"  >
@@ -8,7 +8,7 @@
                 <option class="{{$brand->id}}" value="{{$brand->id}}"
                     @if ($brand->id == $addata[0]->brand)
                         {{'selected'}}
-                    @endif>{{$brand->brand_en}}</option>
+                    @endif>{{$brand['brand_'.LaravelLocalization::getcurrentlocale()]}}</option>
             @endforeach
         </select>
 
@@ -18,7 +18,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="model1" class="col-md-4 col-form-label text-md-right">{{ __('Model') }}</label>
+    <label for="model1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Model') }}</label>
 
     <div class="col-md-6">
         <select id="model1" class="form-control text-muted" name="model"  >
@@ -39,7 +39,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="condition11" class="col-md-4 col-form-label text-md-right">{{ __('Condition') }}</label>
+    <label for="condition11" class="col-md-4 col-form-label text-md-right">{{ __('msg.Condition') }}</label>
 
     <div class="col-md-6">
         <select id="condition11" class="form-control text-muted" name="condition1"  >
@@ -47,21 +47,20 @@
             <option value="new"
             @if ('new' == $addata[0]->condition1)
                 {{'selected'}}
-            @endif>New</option>
+            @endif>{{__('msg.New')}}</option>
             <option value="used"
             @if ('used' == $addata[0]->condition1)
                 {{'selected'}}
-            @endif>Used</option>
+            @endif>{{__('msg.Used')}}</option>
         </select>
 
         <strong  id="condition1_error1" class="text-danger" role="alert">
         </strong>
     </div>
 </div>
-{{-- @if($addata[0]->sub_category_id != 3) --}}
 <div id="notforspare1">
 <div class="form-group row">
-    <label for="engine1" class="col-md-4 col-form-label text-md-right">{{ __('Engine Capacity') }}</label>
+    <label for="engine1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Engine Capacity') }}</label>
 
     <div class="col-md-6">
         <select id="engine1" class="form-control text-muted" name="engine"  >
@@ -90,10 +89,10 @@
             @if ('2200-2800' == $addata[0]->engine)
                 {{'selected'}}
             @endif>2200-2800</option>
-            <option value="more than 3000"
-            @if ('more than 3000' == $addata[0]->engine)
+            <option value="+3000"
+            @if ('+3000' == $addata[0]->engine)
                 {{'selected'}}
-            @endif>{{'more than 3000'}}</option>
+            @endif>+3000</option>
         </select>
 
         <strong  id="engine_error1" class="text-danger" role="alert">
@@ -102,7 +101,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="body_type1" class="col-md-4 col-form-label text-md-right">{{ __('Body Type') }}</label>
+    <label for="body_type1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Body Type') }}</label>
 
     <div class="col-md-6">
         <select id="body_type1" class="form-control text-muted" name="body_type"  >
@@ -114,39 +113,39 @@
             <option value="SUV"
             @if ('SUV' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'SUV'}}</option>
+            @endif>{{__('msg.SUV')}}</option>
             <option value="Sedan"
             @if ('Sedan' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Sedan'}}</option>
+            @endif>{{__('msg.Sedan')}}</option>
             <option value="Hatch Back"
             @if ('Hatch Back' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Hatch Back'}}</option>
+            @endif>{{__('msg.Hatch Back')}}</option>
             <option value="Van"
             @if ('Van' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Van'}}</option>
+            @endif>{{__('msg.Van')}}</option>
             <option value="Bus"
             @if ('Bus' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Bus'}}</option>
+            @endif>{{__('msg.Bus')}}</option>
             <option value="Truck"
             @if ('Truck' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Truck'}}</option>
+            @endif>{{__('msg.Truck')}}</option>
             <option value="Coupe"
             @if ('Coupe' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Coupe'}}</option>
+            @endif>{{__('msg.Coupe')}}</option>
             <option value="Cabriolet"
             @if ('Cabriolet' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Cabriolet'}}</option>
+            @endif>{{__('msg.Cabriolet')}}</option>
             <option value="Other"
             @if ('Other' == $addata[0]->body_type)
                 {{'selected'}}
-            @endif>{{'Other'}}</option>
+            @endif>{{__('msg.Other')}}</option>
         </select>
 
         <strong  id="body_type_error1" class="text-danger" role="alert">
@@ -155,7 +154,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="fuel1" class="col-md-4 col-form-label text-md-right">{{ __('Fuel Type') }}</label>
+    <label for="fuel1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Fuel Type') }}</label>
 
     <div class="col-md-6">
         <select id="fuel1" class="form-control text-muted" name="fuel"  >
@@ -163,23 +162,23 @@
             <option value="Petrol"
             @if ('Petrol' == $addata[0]->fuel)
                 {{'selected'}}
-            @endif>{{'Petrol'}}</option>
+            @endif>{{__('msg.Petrol')}}</option>
             <option value="Diesel"
             @if ('Diesel' == $addata[0]->fuel)
                 {{'selected'}}
-            @endif>{{'Diesel'}}</option>
+            @endif>{{__('msg.Diesel')}}</option>
             <option value="Gas"
             @if ('Gas' == $addata[0]->fuel)
                 {{'selected'}}
-            @endif>{{'Gas'}}</option>
+            @endif>{{__('msg.Gas')}}</option>
             <option value="Electricity"
             @if ('Electricity' == $addata[0]->fuel)
                 {{'selected'}}
-            @endif>{{'Electricity'}}</option>
+            @endif>{{__('msg.Electricity')}}</option>
             <option value="Hybrid"
             @if ('Hybrid' == $addata[0]->fuel)
                 {{'selected'}}
-            @endif>{{'Hybrid'}}</option>
+            @endif>{{__('msg.Hybrid')}}</option>
         </select>
 
         <strong  id="fuel_error1" class="text-danger" role="alert">
@@ -188,7 +187,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="transmition1" class="col-md-4 col-form-label text-md-right">{{ __('Transmition Type') }}</label>
+    <label for="transmition1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Transmition Type') }}</label>
 
     <div class="col-md-6">
         <select id="transmition1" class="form-control text-muted" name="transmition"  >
@@ -196,11 +195,11 @@
             <option value="Automatic"
             @if ('Automatic' == $addata[0]->transmition)
                 {{'selected'}}
-            @endif>{{'Automatic'}}</option>
+            @endif>{{__('msg.Automatic')}}</option>
             <option value="Manual"
             @if ('Manual' == $addata[0]->transmition)
                 {{'selected'}}
-            @endif>{{'Manual'}}</option>
+            @endif>{{__('msg.Manual')}}</option>
         </select>
 
         <strong  id="transmition_error1" class="text-danger" role="alert">
@@ -209,17 +208,17 @@
 </div>
 
 <div class="form-group row">
-    <label for="kilometers1" class="col-md-4 col-form-label text-md-right">{{ __('Kilometers') }}</label>
+    <label for="kilometers1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Kilometers') }}</label>
 
     <div class="col-md-6">
         <select id="kilometers1" class="form-control text-muted" name="kilometers"  >
             <option></option>
             <option value="{{$addata[0]->kilometers}}" selected>{{$addata[0]->kilometers}}</option>
-            <option value="Less than 10000">{{'Less than 10000'}}</option>
+            <option value="Less than 10000">-10000</option>
             @for ( $i=10000;$i<200000;$i +=2000)
                 <option value="{{$i}} -> {{$i+1999}}">{{$i}} -> {{$i+1999}}</option>
             @endfor
-            <option value="200000 or more">{{'200000 or more'}}</option>
+            <option value="200000 or more">+200000</option>
         </select>
 
         <strong  id="kilometers_error1" class="text-danger" role="alert">
@@ -228,7 +227,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="color1" class="col-md-4 col-form-label text-md-right">{{ __('Color') }}</label>
+    <label for="color1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Color') }}</label>
 
     <div class="col-md-6">
         <select id="color1" class="form-control text-muted" name="color"  >
@@ -236,63 +235,63 @@
             <option style="background-color:white; color:black;" value="White"
             @if ('White' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'White'}}</option>
+            @endif>{{__('msg.White')}}</option>
             <option style="background-color:black; color:white;" value="Black"
             @if ('Black' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Black'}}</option>
+            @endif>{{__('msg.Black')}}</option>
             <option style="background-color:grey; color:white;" value="Grey"
             @if ('Gray' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Grey'}}</option>
+            @endif>{{__('msg.Grey')}}</option>
             <option style="background-color:silver; color:white;" value="Silver"
             @if ('Silver' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Silver'}}</option>
+            @endif>{{__('msg.Silver')}}</option>
             <option style="background-color:brown; color:white;" value="Brown"
             @if ('Brown' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Brown'}}</option>
+            @endif>{{__('msg.Brown')}}</option>
             <option style="background-color:green; color:white;" value="Green"
             @if ('Green' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Green'}}</option>
+            @endif>{{__('msg.Green')}}</option>
             <option style="background-color:blue; color:white;" value="Blue"
             @if ('Blue' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Blue'}}</option>
+            @endif>{{__('msg.Blue')}}</option>
             <option style="background-color:navy; color:white;" value="Navy"
             @if ('Navy' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Navy'}}</option>
+            @endif>{{__('msg.Navy')}}</option>
             <option style="background-color:red; color:white;" value="Red"
             @if ('Red' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Red'}}</option>
+            @endif>{{__('msg.Red')}}</option>
             <option style="background-color:yellow; color:white;" value="Yellow"
             @if ('Yellow' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Yellow'}}</option>
+            @endif>{{__('msg.Yellow')}}</option>
             <option style="background-color:aqua; color:white;" value="Aqua"
             @if ('Auqa' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Aqua'}}</option>
+            @endif>{{__('msg.Aqua')}}</option>
             <option style="background-color:gold; color:white;" value="Gold"
             @if ('Gold' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Gold'}}</option>
+            @endif>{{__('msg.Gold')}}</option>
             <option style="background-color:orange; color:white;" value="Orange"
             @if ('Orange' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Orange'}}</option>
+            @endif>{{__('msg.Orange')}}</option>
             <option style="background-color:rgb(100, 0, 0); color:white;" value="Dark Red"
             @if ('Dark Red' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Dark Red'}}</option>
+            @endif>{{__('msg.Dark Red')}}</option>
             <option value="Other"
             @if ('Other' == $addata[0]->color)
                 {{'selected'}}
-            @endif>{{'Other'}}</option>
+            @endif>{{__('msg.Other')}}</option>
         </select>
 
         <strong  id="color_error1" class="text-danger" role="alert">
@@ -301,7 +300,7 @@
 </div>
 
 <div class="form-group row">
-    <label for="additions1" class="col-md-4 col-form-label text-md-right">{{ __('Additions') }}</label>
+    <label for="additions1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Additions') }}</label>
 
     <div class="col-md-6">
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="ABS"
@@ -310,157 +309,157 @@
                     {{'checked'}}
                 @endif
             @endforeach
-            >ABS</label>
+            >{{ __('msg.ABS')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="AC"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('AC' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>AC</label>
+            @endforeach>{{ __('msg.AC')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="AUX"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('AUX' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>AUX</label>
+            @endforeach>{{ __('msg.AUX')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="EBD"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('EBD' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>EBD</label>
+            @endforeach>{{ __('msg.EBD')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Air Bags"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Air Bags' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Air Bags</label>
+            @endforeach>{{ __('msg.Air Bags')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Alert"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Alert' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Alert</label>
+            @endforeach>{{ __('msg.Alert')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Radio"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Radio' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Radio</label>
+            @endforeach>{{ __('msg.Radio')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Bluetooth"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Bluetooth' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Bluetooth</label>
+            @endforeach>{{ __('msg.Bluetooth')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Cruise Control"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Cruise Control' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Cruise Control</label>
+            @endforeach>{{ __('msg.Cruise Control')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Fog Lights"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Fog Lights' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Fog Lights</label>
+            @endforeach>{{ __('msg.Fog Lights')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Start Botton"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Start Botton' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Start Botton</label>
+            @endforeach>{{ __('msg.Start Botton')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Leather Seats"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Leather Seats' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Leather Seats</label>
+            @endforeach>{{ __('msg.Leather Seats')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Navigation System"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Navigation System' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Navigation System</label>
+            @endforeach>{{ __('msg.Navigation System')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Off Road Wheels"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Off Road Wheels' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Off Road Wheels</label>
+            @endforeach>{{ __('msg.Off Road Wheels')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Parking Sensors"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Parking Sensors' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Parking Sensors</label>
+            @endforeach>{{ __('msg.Parking Sensors')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Center Lock"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Center Lock' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Center Lock</label>
+            @endforeach>{{ __('msg.Center Lock')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Electrical Mirrors"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Electrical Mirrors' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Electrical Mirrors</label>
+            @endforeach>{{ __('msg.Electrical Mirrors')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Electrical Seats"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Electrical Seats' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Electrical Seats</label>
+            @endforeach>{{ __('msg.Electrical Seats')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Power Stiring"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Power Stiring' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Power Stiring</label>
+            @endforeach>{{ __('msg.Power steering')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Electrical Windows"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Electrical Windows' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Electrical Windows</label>
+            @endforeach>{{ __('msg.Electrical Windows')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Special Wheels"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Special Wheels' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Special Wheels</label>
+            @endforeach>{{ __('msg.Special Wheels')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Rear Camera"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Rear Camera' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Rear Camera</label>
+            @endforeach>{{ __('msg.Rear Camera')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Car Roof Rack"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Car Roof Rack' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Car Roof Rack</label>
+            @endforeach>{{ __('msg.Car Roof Rack')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Sunroof"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Sunroof' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Sunroof</label>
+            @endforeach>{{ __('msg.Sunroof')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="Touch Screen"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('Touch Screen' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>Touch Screen</label>
+            @endforeach>{{ __('msg.Touch Screen')}}</label>
         <label class="mr-2 ml-2"><input type="checkbox" class="text-muted add" name="add1[]" value="USB Charger"
             @foreach (explode('-',$addata[0]->additions) as $add)
                 @if ('USB Charger' == $add)
                     {{'checked'}}
                 @endif
-            @endforeach>USB Charger</label>
+            @endforeach>{{ __('msg.USB Charger')}}</label>
     </div>
 </div>
 </div>

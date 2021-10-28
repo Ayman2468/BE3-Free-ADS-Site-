@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Edit Ad') }}</div>
+                <div class="card-header @if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">{{ __('msg.Edit Ad') }}</div>
 
                 <div class="card-body">
 
@@ -17,7 +17,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="title1" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                            <label for="title1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Title') }}</label>
 
                             <div class="col-md-6">
                                 <input id="title1" type="text" class="form-control" name="title"  autocomplete="title" value="{{$addata[0]->title}}" autofocus>
@@ -28,11 +28,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="category1" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                            <label for="category1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Category') }}</label>
 
                             <div class="col-md-6">
                                 <select id="category1" class="form-control text-muted" name="category" readonly>
-                                    <option class="{{$categories->id}}" value="{{$categories->id}}" selected>{{$categories->category_en}}</option>
+                                    <option class="{{$categories->id}}" value="{{$categories->id}}" selected>{{$categories['category_'.LaravelLocalization::getcurrentlocale()]}}</option>
                                 </select>
 
                                 <strong  id="category_error1" class="text-danger" role="alert">
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="sub_category1" class="col-md-4 col-form-label text-md-right">{{ __('Sub Category') }}</label>
+                            <label for="sub_category1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Sub Category') }}</label>
 
                             <div class="col-md-6">
                                 <select id="sub_category1" class="form-control text-muted" name="sub_category">
@@ -50,7 +50,7 @@
                                             @if ($subcategory->id == $addata[0]->sub_category_id)
                                                 {{'selected'}}
                                             @endif
-                                            >{{$subcategory->sub_category_en}}</option>
+                                            >{{$subcategory['sub_category_'.LaravelLocalization::getcurrentlocale()]}}</option>
                                     @endforeach
                                 </select>
 
@@ -69,10 +69,9 @@
                             @include('ad.real_specification1')
                         </div>
                         @endif
-                        {{-- End of Changeable Section --}}
-                        {{-- @if($addata[0]->real_estate_type != 'Land') --}}
+
                         <div id="year1" class="form-group row">
-                            <label for="year2" class="col-md-4 col-form-label text-md-right">{{ __('Year') }}</label>
+                            <label for="year2" class="col-md-4 col-form-label text-md-right">{{ __('msg.Year') }}</label>
 
                             <div class="col-md-6">
                                 <select id="year2" class="form-control text-muted" name="year"  >
@@ -91,25 +90,24 @@
                                 </strong>
                             </div>
                         </div>
-                        {{-- @endif --}}
 
                         <div class="form-group row">
-                            <label for="payment_method1" class="col-md-4 col-form-label text-md-right">{{ __('Payment Method') }}</label>
+                            <label for="payment_method1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Payment Method')}}</label>
 
                             <div class="col-md-6">
                                 <select id="payment_method1" class="form-control text-muted" name="payment_method">
                                     <option value="cash"
                                     @if ('cash' == $addata[0]->payment_method)
                                         {{'selected'}}
-                                    @endif>Cash</option>
+                                    @endif>{{ __('msg.Cash')}}</option>
                                     <option value="installment"
                                     @if ('installment' == $addata[0]->payment_method)
                                         {{'selected'}}
-                                    @endif>Installment</option>
+                                    @endif>{{ __('msg.Installment')}}</option>
                                     <option value="cash & installment"
                                     @if ('cash & installment' == $addata[0]->payment_method)
                                         {{'selected'}}
-                                    @endif>Cash & Installment</option>
+                                    @endif>{{ __('msg.Cash & Installment')}}</option>
                                 </select>
 
                                 <strong  id="payment_method_error1" class="text-danger" role="alert">
@@ -118,42 +116,42 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="receiving_date1" class="col-md-4 col-form-label text-md-right">{{ __('Receiving Date') }}</label>
+                            <label for="receiving_date1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Receiving Date') }}</label>
 
                             <div class="col-md-6">
                                 <select id="receiving_date1" class="form-control text-muted" name="receiving_date"  >
                                     <option value="immediately"
                                     @if ('immediately' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Immediately</option>
+                                    @endif>{{ __('msg.Immediately')}}</option>
                                     <option value="within a week"
                                     @if ('within a week' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a week</option>
+                                    @endif>{{ __('msg.Within a week')}}</option>
                                     <option value="within a month"
                                     @if ('within a month' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a month</option>
+                                    @endif>{{ __('msg.Within a month')}}</option>
                                     <option value="within a year"
                                     @if ('within a year' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a year</option>
+                                    @endif>{{ __('msg.Within a year')}}</option>
                                     <option value="within a 2 years"
                                     @if ('within a 2 years' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a 2 years</option>
+                                    @endif>{{ __('msg.Within a 2 years')}}</option>
                                     <option value="within a 3 years"
                                     @if ('within a 3 years' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a 3 years</option>
+                                    @endif>{{ __('msg.Within a 3 years')}}</option>
                                     <option value="within a 4 years"
                                     @if ('within a 4 years' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a 4 years</option>
+                                    @endif>{{ __('msg.Within a 4 years')}}</option>
                                     <option value="within a 5 years"
                                     @if ('within a 5 years' == $addata[0]->receiving_date)
                                         {{'selected'}}
-                                    @endif>Within a 5 years</option>
+                                    @endif>{{ __('msg.Within a 5 years')}}</option>
                                 </select>
 
                                 <strong  id="receiving_date_error1" class="text-danger" role="alert">
@@ -162,7 +160,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="price1" class="col-md-4 col-form-label text-md-right">{{ __('Price / Advance Payment') }}</label>
+                            <label for="price1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Price / Advance Payment') }}</label>
 
                             <div class="col-md-6">
                                 <input id="price1" type="text" class="form-control" name="price" autocomplete="price" value="{{$addata[0]->price}}">
@@ -173,7 +171,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="details1" class="col-md-4 col-form-label">{{ __('Details') }}</label>
+                            <label for="details1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Details') }}</label>
 
                             <div class="col-md-6">
                                 <textarea id="details1" type="text" class="form-control" name="details"  data-mintext="10" data-maxtext="4000" cols="80" rows="1">
@@ -187,26 +185,29 @@
 
                         <input type="text" value="{{$addata[0]->user_id}}" name="user_id" hidden>
                         <div class="form-group row">
-                            <label for="images1" class="col-md-4 col-form-label text-md-right">{{ __('Add images of what you are selling') }}</label>
+                            <label for="images1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Add images of what you are selling') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 @if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">
                                 <input type="text" value="{{count(explode('-',$addata[0]->images))}}" name="oldimagesnumber" hidden>
-                                <input id="images1" type="file" name="images[]" multiple>
+                                <label class="btn bg-light">
+                                    {{__('msg.upload...')}}
+                                <input id="images1" type="file" name="images[]" multiple hidden>
+                                </label>
                                 <div class="col-10 bg-light ">
                                     @foreach (explode('-',$addata[0]->images) as $image)
                                     <img class=" col-10 mt-1 mb-1" src="{{asset('images/ads/'.$addata[0]->user_id.'/'.$image)}}">
-                                    <label ><input type="checkbox" name="dele[]" value="{{$image}}">Delete This Image</label>
+                                    <label ><input type="checkbox" name="dele[]" value="{{$image}}">{{ __('msg.Delete This Image')}}</label>
                                     @endforeach
                                 </div>
-                                <p class="note">*note that the first image will be the cover of the ad</p>
-                                <p class="note">*note that the allowed extensions are (.jpg .jepg .png .gif) only</p>
+                                <p class="note">{{ __('msg.*note that the first image will be the cover of the ad')}}</p>
+                                <p class="note">{{ __('msg.*note that the allowed extensions are (.jpg .jepg .png .gif) only')}}</p>
 
                                 <strong  id="images_error1" class="text-danger" role="alert">
                                 </strong>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="governorate1" class="col-md-4 col-form-label text-md-right">{{ __('Governorate') }}</label>
+                            <label for="governorate1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Governorate') }}</label>
 
                             <div class="col-md-6">
                                 <select id="governorate1" class="form-control text-muted" name="governorate"  >
@@ -215,7 +216,7 @@
                                     @if ($governorate->id == $addata[0]->governorates_id)
                                         {{'selected'}}
                                     @endif
-                                    >{{$governorate->governorate_name_en}}</option>
+                                    >{{$governorate['governorate_name_'.LaravelLocalization::getcurrentlocale()]}}</option>
                                     @endforeach
                                 </select>
 
@@ -225,7 +226,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="city1" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
+                            <label for="city1" class="col-md-4 col-form-label text-md-right">{{ __('msg.City') }}</label>
 
                             <div class="col-md-6">
                                 <select id="city1" class="form-control text-muted" name="city"  >
@@ -235,7 +236,7 @@
                                             @if ($city->id == $addata[0]->cities_id)
                                                 {{'selected'}}
                                             @endif
-                                            >{{$city->city_name_en}}</option>
+                                            >{{$city['city_name_'.LaravelLocalization::getcurrentlocale()]}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -246,7 +247,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="mobile1" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
+                            <label for="mobile1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Mobile') }}</label>
 
                             <div class="col-md-6">
                                 <input id="mobile1" type="text" class="form-control" name="mobile"  autocomplete="mobile" value="{{$addata[0]->mobile}}">
@@ -257,24 +258,24 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="call1" class="col-md-4 col-form-label text-md-right">{{ __('Calling') }}</label>
+                            <label for="call1" class="col-md-4 col-form-label text-md-right">{{ __('msg.Calling') }}</label>
 
                             <div class="col-md-6">
                                 <label><input type="radio" class="mt-3 ml-2 mr-2" name="call1" value="Allowed"
                                     @if ('Allowed' == $addata[0]->call1)
                                         {{'checked'}}
-                                    @endif>{{('Allow Calls')}}</label>
+                                    @endif>{{__('msg.Allow Calls')}}</label>
                                 <label><input type="radio" class="mt-3 ml-2 mr-2" name="call1" value="Not Allowed"
                                     @if ('Not Allowed' == $addata[0]->call1)
                                         {{'checked'}}
-                                    @endif>{{('Don\'t Allow Calls')}}</label>
+                                    @endif>{{__('msg.Don\'t Allow Calls')}}</label>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <button id="save1" type="submit" class="btn btn-primary">
-                                    {{ __('Edit') }}
+                                    {{ __('msg.Edit') }}
                                 </button>
                             </div>
                         </div>
@@ -358,10 +359,9 @@ $(document).ready(function() {
                         for(var i=0 ; i<len ; i++){
                             var id = response['data'][i].id;
                             var governorate_id = response['data'][i].governorate_id;
-                            var city_name_en = response['data'][i].city_name_en;
-                            var city_name_ar = response['data'][i].city_name_ar;
+                            var city = response['data'][i].city;
 
-                            var option = "<option value="+id+">"+city_name_en+"</option";
+                            var option = "<option value="+id+">"+city+"</option";
 
                                 $('#city1').append(option);
                         }

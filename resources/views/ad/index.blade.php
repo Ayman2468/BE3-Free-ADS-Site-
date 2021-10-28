@@ -20,46 +20,26 @@
         </div>
 
         <!-- PHP code to read records will be here -->
+        <form method="get" action="{{url('ad/index')}}">
+            <div class="search msg pt-2 pb-4 mr-auto ml-auto col-12 d-md-flex flex-sm-column flex-md-row flex-md-wrap align-items-center">
 
+                <input type="text" class="form-control col-md-2 mb-2 mt-2 mr-md-2 ml-md-2" name="specad" placeholder="{{__('msg.Ad Number')}}" autocomplete="specad">
+                <button type="submit" class="btn btn-primary col-md-2 smaller align-middle p-0">
+                    {{ __('msg.Search') }}
+                </button>
+            </div>
+        </form>
 
         <table class='table table-hover table-responsive table-bordered text-center'>
             <!-- creating our table heading -->
             <tr>
                 <th>{{__('msg.ID')}}</th>
-                <th>{{__('msg.User ID')}}</th>
+                <th>{{__('msg.User Name')}}</th>
                 <th>{{__('msg.Title')}}</th>
                 <th>{{__('msg.City')}}</th>
                 <th>{{__('msg.Price')}}</th>
-                <th>{{__('msg.Created at')}}</th>
-                <th>{{__('msg.Updated at')}}</th>
-                {{-- <th>{{__('msg.Category')}}</th>
-                <th>{{__('msg.Sub Category')}}</th>
-                <th>{{__('msg.Details')}}</th>
-                <th>{{__('msg.Governorate')}}</th>
-                <th>{{__('msg.Year')}}</th>
-                <th>{{__('msg.Payment Method')}}</th>
-                <th>{{__('msg.Receiving/Delivery Date')}}</th>
-                <th>{{__('msg.Mobile')}}</th>
-                <th>{{__('msg.Call')}}</th>
-                ---------------------------------------
-                <th>{{__('msg.Real Estate Type')}}</th>
-                <th>{{__('msg.Space')}}</th>
-                <th>{{__('msg.Bed Rooms')}}</th>
-                <th>{{__('msg.Bathrooms')}}</th>
-                <th>{{__('msg.Furnished')}}</th>
-                <th>{{__('msg.Floor')}}</th>
-                --------------------------------------
-                <th>{{__('msg.Brand')}}</th>
-                <th>{{__('msg.Model')}}</th>
-                <th>{{__('msg.Condition')}}</th>
-                <th>{{__('msg.Engine')}}</th>
-                <th>{{__('msg.Body Type')}}</th>
-                <th>{{__('msg.Fuel')}}</th>
-                <th>{{__('msg.Transmition')}}</th>
-                <th>{{__('msg.Kilometers')}}</th>
-                <th>{{__('msg.Color')}}</th>
-                ----------------------------------------
-                <th>{{__('msg.Additions')}}</th> --}}
+                <th>{{__('msg.Created')}}</th>
+                <th>{{__('msg.Edited')}}</th>
                 <th>{{__('msg.Action')}}</th>
             </tr>
 
@@ -75,33 +55,7 @@
                 <td>{{ $fetchedData->price }}</td>
                 <td>{{ $fetchedData->created_at }}</td>
                 <td>{{ $fetchedData->updated_at }}</td>
-                {{-- <td>{{ $fetchedData->category_id }}</td>
-                <td>{{ $fetchedData->sub_category_id }}</td>
-                <td>{{ $fetchedData->governorates_id }}</td>
-                <td>{{ $fetchedData->year }}</td>
-                <td>{{ $fetchedData->payment_method }}</td>
-                <td>{{ $fetchedData->receiving_date }}</td>
-                <td>{{ $fetchedData->mobile }}</td>
-                <td>{{ $fetchedData->call1 }}</td>
-                ---------------------------------------------
-                <td>{{ $fetchedData->real_estate_type }}</td>
-                <td>{{ $fetchedData->bed_rooms }}</td>
-                <td>{{ $fetchedData->bathrooms }}</td>
-                <td>{{ $fetchedData->space }}</td>
-                <td>{{ $fetchedData->furnished }}</td>
-                <td>{{ $fetchedData->floor }}</td>
-                ----------------------------------------------
-                <td>{{ $fetchedData->brand }}</td>
-                <td>{{ $fetchedData->model }}</td>
-                <td>{{ $fetchedData->condition1 }}</td>
-                <td>{{ $fetchedData->engine }}</td>
-                <td>{{ $fetchedData->body_type }}</td>
-                <td>{{ $fetchedData->fuel }}</td>
-                <td>{{ $fetchedData->transmition }}</td>
-                <td>{{ $fetchedData->kilometers }}</td>
-                <td>{{ $fetchedData->color }}</td>
-                ----------------------------------------------
-                <td>{{ $fetchedData->additions }}</td> --}}
+
             <td>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#exampleModal{{$fetchedData->id}}">
@@ -113,13 +67,13 @@
                             <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <h5 class="modal-title" id="exampleModalLabel">{{__('msg.Delete Confirmation')}}</h5>
+                                <button type="button" class="close ml-1" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                                {{__('msg.are you sure you want to delete this ad')}}
+                                {{__('msg.are you sure you want to delete this Ad')}}
                                 </div>
                                 <div class="modal-footer">
                                     <a href='{{ url('ad/delete/'.$fetchedData->id) }}' class='btn btn-danger'>{{__('msg.Delete')}}</a>
@@ -128,7 +82,7 @@
                             </div>
                         </div>
                     <a href='{{ url('ad/edit/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Edit')}}</a>
-                    <a href='{{ url('ad/display/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Show AD')}}</a>
+                    <a href='{{ url('ad/display/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Display AD')}}</a>
                     @if ($fetchedData->approval == 'Not Approved')
                         <a href='{{ url('ad/approve/'.$fetchedData->id) }}' class='btn btn-primary mb-1'>{{__('msg.Approve AD')}}</a>
                     @endif
@@ -142,7 +96,6 @@
             {!!$adsdata->links()!!}
         </div>
     </div>
-    <!-- end .container -->
 
 @endsection
 

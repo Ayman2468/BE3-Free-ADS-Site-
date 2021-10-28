@@ -59,17 +59,17 @@ class admincontroller extends Controller
             "password"  => "required|min:8"
         ]);
         if($data['email'] != Auth::user()->email){
-            return redirect()->back()->withInput(['email'=>'you can\'t access as admin with other\'s data']);
+            return redirect()->back()->withInput(['email'=>__('msg.you can\'t access as admin with other\'s data')]);
         }
         $pass = sha1($request->password);
         $a = admins::where('email', $request->email)->where('password', $pass)->select('id', 'email', 'position')->get();
         if (!$a->isEmpty()) {
             foreach ($a as $admindata) {
                 $request->session()->put('admindata', $admindata);
-                return redirect('admin/index');
+                return redirect('/');
             }
         } else {
-            return redirect()->route('adminlogin')->withInput($request->only('email'))->with('message','wrong password');
+            return redirect()->route('adminlogin')->withInput($request->only('email'))->with('message',__('msg.wrong password'));
         }
     }
 

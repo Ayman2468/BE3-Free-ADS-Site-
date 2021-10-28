@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\passwordrequest;
 use App\Http\Requests\userrequest;
 use App\Models\admins;
+use App\Models\ads;
+use App\Models\governorates;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class usercontroller extends Controller
 {
@@ -105,7 +108,7 @@ class usercontroller extends Controller
                     'password' => Hash::make($request->password),
                 ];
             }else{
-                session()->flash('message', __('msg.password confirmation must be identical to password'));
+                session()->flash('message', __('msg.confirm password must be identical to password'));
                 return redirect()->back();
             }
         }else{
@@ -128,5 +131,14 @@ class usercontroller extends Controller
         } else {
             return redirect('home');
         }
+    }
+
+    public function ads($user_id)
+    {
+        $myads = ads::where('user_id',$user_id)->paginate(paginationcount);
+        foreach($myads as $ad){
+            $ad->governorates_id = governorates::where('id',$ad->governorates_id)->value('governorate_name_'.LaravelLocalization::getcurrentlocale());
+        }
+        return view('users.myads',['myads'=>$myads]);
     }
 }

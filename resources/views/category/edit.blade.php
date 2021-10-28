@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Edit Category') }}</div>
+                <div class="card-header @if(LaravelLocalization::getcurrentlocale() == 'ar') text-right @endif">{{ __('msg.Edit Category') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('category.update',$categorydata->id) }}">
@@ -14,7 +14,7 @@
                         <input type="text" name="id" value="{{ $categorydata->id }}" hidden>
 
                         <div class="form-group row">
-                            <label for="category_ar" class="col-md-4 col-form-label text-md-right">{{ __('Category in arabic') }}</label>
+                            <label for="category_ar" class="col-md-4 col-form-label text-md-right">{{ __('msg.Category in arabic') }}</label>
 
                             <div class="col-md-6">
                                 <input id="category_ar" type="text" class="form-control @error('category_ar') is-invalid @enderror" name="category_ar" value="{{ $categorydata->category_ar }}" autocomplete="category_ar">
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="category_en" class="col-md-4 col-form-label text-md-right">{{ __('Category in english') }}</label>
+                            <label for="category_en" class="col-md-4 col-form-label text-md-right">{{ __('msg.Category in english') }}</label>
 
                             <div class="col-md-6">
                                 <input id="category_en" type="text" class="form-control @error('category_en') is-invalid @enderror" name="category_en" value="{{ $categorydata->category_en }}" autocomplete="category_en">
@@ -44,7 +44,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Edit') }}
+                                    {{ __('msg.Edit') }}
                                 </button>
                             </div>
                         </div>
