@@ -4,6 +4,13 @@ use App\Models\category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization as FacadesLaravelLocalization;
+use App\Http\Controllers\adcontroller;
+use App\Http\Controllers\usercontroller;
+use App\Http\Controllers\admincontroller;
+use App\Http\Controllers\commentcontroller;
+use App\Http\Controllers\categorycontroller;
+use App\Http\Controllers\sub_categorycontroller;
+use App\Http\Controllers\paymentcontroller;
 
 /*
 |--------------------------------------------------------------------------

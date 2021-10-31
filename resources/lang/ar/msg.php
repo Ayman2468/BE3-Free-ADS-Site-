@@ -413,4 +413,6 @@ return [
     'sub category name in english is required'=>'اسم الفئة الفرعية بالغة الانجليزية مطلوب',
     'sub category name in arabic must be unique'=>'اسم الفئة الفرعية بالغة العربية لابد ان يكون فريد من نوعه',
     'sub category name in english must be unique'=>'اسم الفئة الفرعية بالغة الانجليزية لابد ان يكون فريد من نوعه',
+    'Notifications'=>'اشعارات',
+    'commented on your ad'=>'علق على اعلانك',
 ];

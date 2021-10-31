@@ -417,4 +417,6 @@ return [
     'sub category name in english is required'=>'sub category name in english is required',
     'sub category name in arabic must be unique'=>'sub category name in arabic must be unique',
     'sub category name in english must be unique'=>'sub category name in english must be unique',
+    'Notifications'=>'Notifications',
+    'commented on your ad'=>'commented on your ad',
     ];
