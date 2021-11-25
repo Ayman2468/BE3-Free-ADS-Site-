@@ -33,7 +33,7 @@
             <p class="font-weight-bold"><u>{{__('msg.2.1.Data provided through direct interactions')}}</u></p>
             <p class="font-weight-bold">{{__('msg.Registration and other account information')}}</p>
             <p>
-                <ul>
+                <ul class="col-10">
                     <li>
                         {{__('msg.If you registered using your Google account: your name, nickname and your email address;')}}
                     </li>
@@ -47,7 +47,7 @@
             </p>
             <p>
                 {{__('msg.Depending on the choices you make while logging into our services or during the process of subscribing to our services, you may choose to give the following additional personal data:')}}
-                <ul>
+                <ul class="col-10">
                     <li>
                         {{__('msg.your name')}}
                     </li>
@@ -113,7 +113,7 @@
         <p class="font-weight-bold">{{__('msg.4. Why do we process your personal information?')}}</p>
         <p>
             {{__('msg.We use your personal data only when permitted by law. We will often use your personal data in the following cases:')}}
-            <ul>
+            <ul  class="col-10">
                 <li>
                     {{__('msg.When we need to perform a contract and we are about to perform it or we have done so with you.')}}
                 </li>
@@ -133,7 +133,7 @@
         </p>
         <div>
             <p class="font-weight-bold"><u>{{__('msg.4.1. In order to provide access and delivery of services through our platform')}}</u></p>
-            <ul>
+            <ul  class="col-10">
                 <li>
                     {{__('msg.If you log in using your cell phone number or email ID, we use your first and last name, cell phone number, and/or email address to identify you as a user and provide access to our Platform.')}}
                 </li>
@@ -152,7 +152,7 @@
             <p class="font-weight-bold"><u>{{__('msg.4.2. In order to improve your experience on the platform')}}</u></p>
             <p>
                 {{__('msg.We use the data of your visits to the Internet to:')}}
-                <ul>
+                <ul  class="col-10">
                     <li>
                         {{__('msg.To provide you with relevant content such as giving you more relevant search results when you use our Services;')}}
                     </li>
@@ -166,7 +166,7 @@
             </p>
             <p>
                 {{__('msg.We use your location data for the following purposes:')}}
-                <ul>
+                <ul class="col-10">
                     <li>
                         {{__('msg.collect anonymous and aggregate information about the characteristics and behavior of BE3 users including for the purposes of business analysis, segmentation and development of anonymous profiles.')}}
                     </li>
@@ -184,7 +184,7 @@
         </div>
         <div>
             <p class="font-weight-bold"><u>{{__('msg.4.3 In order to provide you with a reliable and trusted platform')}}</u></p>
-            <ul>
+            <ul class="col-10">
                 <li>
                     {{__('msg.We use your cell phone number, registry login data, and unique device identifiers to administer and maintain our Platform (including troubleshooting, data analysis, testing, fraud prevention, system maintenance, support, reporting and data hosting).')}}
                 </li>
@@ -207,7 +207,7 @@
         <p class="font-weight-bold">{{__('msg.6. Your rights')}}</p>
         <p>
             {{__('msg.You have the following legal rights regarding your personal data based on how we interact with you:')}}
-            <ul>
+            <ul class="col-10">
                 <li>
                     {{__('msg.The right to request access to your personal data (commonly known as a “data subject access request”). This allows you to obtain a copy of the personal data we hold about you and to verify that we are lawfully processing it.')}}
                 </li>
@@ -220,7 +220,7 @@
             </ul>
         </p>
         <p>
-            <span class="font-weight-bold">{{__('msg.Usually, there is no fee to pay:</span> you will not have to pay a fee to access your personal data (or to exercise any of your other rights). However, we may charge a reasonable fee for the cost of providing a copy of the data or if your request is discreet, repetitive or excessive. Alternatively, we may refuse to comply with your request in these circumstances.')}}
+            <span class="font-weight-bold">{{__('msg.Usually, there is no fee to pay:')}}</span> {{__('msg.you will not have to pay a fee to access your personal data (or to exercise any of your other rights). However, we may charge a reasonable fee for the cost of providing a copy of the data or if your request is discreet, repetitive or excessive. Alternatively, we may refuse to comply with your request in these circumstances.')}}
         </p>
         <p>
             <span class="font-weight-bold">{{__('msg.Response time limit:')}}</span> {{__('msg.We try to respond to all legitimate requests within one month. From time to time, it may take more than a month if your request is particularly complex or if you have placed multiple requests. In this case, we will notify you and provide you with updated information.')}}
@@ -236,7 +236,7 @@
         </p>
         <p>
             {{__('msg.You may receive marketing communications from us if you have:')}}
-            <ul>
+            <ul class="col-10">
                 <li>
                     {{__('msg.You requested this information from us.')}}
                 </li>
@@ -258,12 +258,10 @@
             {{__('msg.We may have to share your personal data with the parties set out below for the purposes specified in Section 4 above.')}}
         </p>
         <p>
-            <span class="font-weight-bold">{{__('msg.Providers, data analysis and marketing :</span> In order to improve our services, we will sometimes share your non-identifiable information with analytics providers that help us analyze how people use our Platform/Service. We share your information with them in a non-identifiable form to monitor and report on the effectiveness of campaign delivery to our business partners and for internal business analysis.
-            For more details about analytics providers, please refer to our Policy on Cookies and Similar Technologies. We may share your contact information in an identifiable form with third party service providers for the purposes of facilitating our marketing communications to you. These third-party service providers must handle your information on your behalf, for BE3, and in accordance with our instructions.
-            They will not have independent rights in respect of it. They will comply with the terms of this Privacy Policy as well as their data processing obligations in accordance with applicable data protection laws and/or a contractual obligation.')}}
+            <span class="font-weight-bold">{{__('msg.Providers, data analysis and marketing :')}}</span> {{__('msg.In order to improve our services, we will sometimes share your non-identifiable information with analytics providers that help us analyze how people use our Platform/Service. We share your information with them in a non-identifiable form to monitor and report on the effectiveness of campaign delivery to our business partners and for internal business analysis. For more details about analytics providers, please refer to our Policy on Cookies and Similar Technologies. We may share your contact information in an identifiable form with third party service providers for the purposes of facilitating our marketing communications to you. These third-party service providers must handle your information on your behalf, for BE3, and in accordance with our instructions. They will not have independent rights in respect of it. They will comply with the terms of this Privacy Policy as well as their data processing obligations in accordance with applicable data protection laws and/or a contractual obligation.')}}
         </p>
         <p>
-            <span class="font-weight-bold">{{__('msg.Law Enforcement Authorities, Regulatory Bodies, and Others:</span> We may disclose your Personal Data to law enforcement authorities, regulators, governmental or public bodies, and other relevant third parties to comply with any legal or regulatory requirements.')}}
+            <span class="font-weight-bold">{{__('msg.Law Enforcement Authorities, Regulatory Bodies, and Others:')}}</span> {{__('msg.We may disclose your Personal Data to law enforcement authorities, regulators, governmental or public bodies, and other relevant third parties to comply with any legal or regulatory requirements.')}}
         </p>
         <p>
             {{__('msg.We may choose to sell, transfer or merge parts of our business or our assets. Alternatively, we may seek to acquire or merge with other businesses. If there is a change in our business, the new owners may use your personal data in the same manner as described in this Privacy Policy.')}}
@@ -276,7 +274,7 @@
         <p class="font-weight-bold">{{__('msg.9. International Transfers')}}</p>
         <p>
             {{__('msg.You agree that we may transfer your personal data to third parties inside and outside Egypt. When we transfer your personal data outside Egypt, we ensure that we receive a similar degree of protection by ensuring that at least one of the following safeguards is implemented:')}}
-            <ul>
+            <ul class="col-10">
                 <li>
                     {{__('msg.countries that have been deemed to provide a similar level of protection Appropriate protection of personal data by the European Commission.')}}
                 </li>
@@ -292,16 +290,14 @@
     <div>
         <p class="font-weight-bold">{{__('msg.10. Where and when will your data be stored?')}}</p>
         <p>
-            {{__('msg.The data we collect about you may be stored and processed inside and outside Egypt in secure servers in order to provide the best possible user experience. For example - to create a quick website or mobile app. We will only retain your personal data for as long as it is necessary to fulfill the purposes for which we collected it, including for the purposes of satisfying any legal,
-            accounting or reporting requirements. To determine the appropriate retention period for personal data, we consider the amount, nature and sensitivity of the personal data, the potential risk of harm resulting from unauthorized use or disclosure of your personal data, the purposes for which we process your personal data and whether we can achieve those purposes through other means,
-            and legal requirements applicable. If you have any questions regarding the retention period of your data, please contact us through the Help Center')}}
+            {{__('msg.The data we collect about you may be stored and processed inside and outside Egypt in secure servers in order to provide the best possible user experience. For example - to create a quick website or mobile app. We will only retain your personal data for as long as it is necessary to fulfill the purposes for which we collected it, including for the purposes of satisfying any legal, accounting or reporting requirements. To determine the appropriate retention period for personal data, we consider the amount, nature and sensitivity of the personal data, the potential risk of harm resulting from unauthorized use or disclosure of your personal data, the purposes for which we process your personal data and whether we can achieve those purposes through other means, and legal requirements applicable. If you have any questions regarding the retention period of your data, please contact us through the Help Center')}}
         </p>
     </div>
     <div>
         <p class="font-weight-bold">{{__('msg.11. Technical and organizational measures and protection treatment')}}</p>
         <p>
             {{__('msg.All information we receive about you is stored on secure servers and we have implemented appropriate technical and organizational measures necessary to protect your personal data. BE3 continually evaluates the security of its network and the adequacy of its internal information security program designed to')}}
-            <ul>
+            <ul class="col-10">
                 <li>
                     {{__('msg.help secure your data against accidental or unlawful loss, inadvertent or unlawful access or disclosure,')}}
                 </li>
